@@ -2,156 +2,144 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Achado Oficial 🇧🇷 — Cupons Mercado Livre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Achado Oficial 🇧🇷 — Cupons e Ofertas Mercado Livre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #2D3277;
+      --primary-light: #EEF2FF;
       --accent-yellow: #FFE600;
       --accent-green: #00A650;
-      --bg: #F4F5F8;
+      --accent-green-bg: #E6F7ED;
+      --accent-purple: #6B21A8;
+      --accent-purple-bg: #F3E8FF;
+      --accent-blue: #1D4ED8;
+      --accent-blue-bg: #EFF6FF;
+      --bg: #F8F9FA;
       --surface: #FFFFFF;
-      --text: #0F172A;
+      --text: #1E293B;
       --text-muted: #64748B;
       --border: #E2E8F0;
-      --radius-ticket: 18px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 84px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 96px; }
 
-    /* HEADER COMPACTO E ELEGANTE */
-    header {
-      background: #FFFFFF; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 100;
-    }
-    .header-inner {
-      max-width: 900px; margin: 0 auto; height: 54px; padding: 0 16px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .brand-title {
-      font-weight: 800; font-size: 1.05rem; color: var(--primary);
-      text-decoration: none; display: flex; align-items: center; gap: 4px;
-    }
-    .btn-site-link {
-      background: #EEF2FF; color: var(--primary); font-size: 0.75rem; font-weight: 700;
-      padding: 6px 12px; border-radius: 20px; text-decoration: none; transition: 0.15s;
-    }
+    /* HEADER */
+    header { background: #FFFFFF; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+    .header-inner { max-width: 1040px; margin: 0 auto; height: 60px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .brand-title { font-weight: 800; font-size: 1.15rem; color: var(--primary); display: flex; align-items: center; gap: 6px; }
+    .btn-header { background: var(--primary-light); color: var(--primary); border: none; font-size: 0.8rem; font-weight: 700; padding: 8px 14px; border-radius: 50px; text-decoration: none; }
 
-    /* FILTROS DESLIZÁVEIS HORIZONTAIS */
-    .filter-bar {
-      background: #FFFFFF; border-bottom: 1px solid var(--border);
-      position: sticky; top: 54px; z-index: 90; padding: 8px 16px;
-    }
-    .filter-scroll {
-      max-width: 900px; margin: 0 auto; display: flex; gap: 8px;
-      overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
-    }
-    .filter-scroll::-webkit-scrollbar { display: none; }
-    
+    /* ONBOARDING RÁPIDO (COMPACTO) */
+    .hero { background: #FFFFFF; border-bottom: 1px solid var(--border); padding: 14px 16px; }
+    .hero-container { max-width: 1040px; margin: 0 auto; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
+    .step-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
+    .step-num { background: var(--primary); color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; flex-shrink: 0; }
+    .step-text h4 { font-size: 0.8rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .step-text p { font-size: 0.72rem; color: var(--text-muted); margin: 0; }
+
+    /* TOOLBAR / FILTROS */
+    .toolbar-wrap { background: #FFFFFF; border-bottom: 1px solid var(--border); position: sticky; top: 60px; z-index: 90; padding: 8px 16px; }
+    .toolbar { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .filter-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; flex-grow: 1; }
     .chip {
-      background: #F1F5F9; border: 1px solid var(--border); padding: 6px 14px; border-radius: 30px;
-      font-size: 0.76rem; font-weight: 700; color: var(--text-muted); cursor: pointer; white-space: nowrap;
-      flex-shrink: 0; transition: all 0.15s; display: flex; align-items: center; gap: 6px;
+      background: var(--bg); border: 1.5px solid var(--border); padding: 6px 12px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 700; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.15s;
+      display: inline-flex; align-items: center; gap: 6px;
     }
-    .chip .num {
-      font-size: 0.7rem; opacity: 0.75;
+    .chip .count {
+      background: #E2E8F0; color: var(--text); font-size: 0.7rem; padding: 1px 6px; border-radius: 20px; font-weight: 800;
     }
-    .chip.active {
-      background: var(--primary); color: #FFFFFF; border-color: var(--primary);
-    }
-    .chip.active .num { opacity: 1; }
+    .chip.active { background: var(--primary); color: #FFFFFF; border-color: var(--primary); }
+    .chip.active .count { background: rgba(255,255,255,0.25); color: #FFFFFF; }
 
-    /* CONTAINER PRINCIPAL */
-    .container { max-width: 900px; margin: 12px auto; padding: 0 14px; }
+    .search-input { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 50px; font-size: 0.78rem; outline: none; width: 200px; background: var(--bg); }
+    .search-input:focus { border-color: var(--primary); background: #FFF; }
+
+    /* GRID DE CUPONS */
+    .container { max-width: 1040px; margin: 18px auto; padding: 0 16px; }
+    .cupons-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 768px) { .cupons-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* CARD DE CUPOM */
+    .cupom-card {
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+      padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: transform 0.15s, border-color 0.15s;
+    }
+    .cupom-card:hover { border-color: #CBD5E1; transform: translateY(-1px); }
+
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 8px; }
+    .desconto-tag { font-size: 1.35rem; font-weight: 800; color: var(--accent-green); line-height: 1; }
+
+    /* TAGS EM DESTAQUE */
+    .pill-scope {
+      font-size: 0.72rem; font-weight: 800; padding: 5px 10px; border-radius: 8px;
+      display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .pill-scope.seller { background: var(--accent-purple-bg); color: var(--accent-purple); border: 1px solid #E9D5FF; }
+    .pill-scope.site { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid #BBF7D0; }
+    .pill-scope.moda { background: #FDF2F8; color: #BE185D; border: 1px solid #FBCFE8; }
+    .pill-scope.casa { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    .pill-scope.outros { background: var(--accent-blue-bg); color: var(--accent-blue); border: 1px solid #BFDBFE; }
+
+    .card-body { margin-bottom: 12px; }
     
-    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    @media (min-width: 680px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .code-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .coupon-code-box {
+      display: inline-flex; align-items: center; background: #F1F5F9; border: 1.5px dashed #CBD5E1;
+      padding: 4px 10px; border-radius: var(--radius-sm);
+    }
+    .code-text { font-size: 0.95rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; }
+    .code-text.masked { filter: blur(5px); user-select: none; }
 
-    /* CARD ESTILO TICKET / CUPOM DE APP */
-    .ticket {
-      background: var(--surface); border-radius: var(--radius-ticket);
-      border: 1px solid #E2E8F0; padding: 14px 16px; display: flex;
-      flex-direction: column; justify-content: space-between; gap: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02); position: relative;
+    /* PROVA SOCIAL */
+    .social-proof {
+      font-size: 0.72rem; font-weight: 700; color: #047857; display: flex; align-items: center; gap: 4px;
+      background: #ECFDF5; padding: 3px 8px; border-radius: 4px; width: fit-content;
     }
+    .social-proof .fire { color: #EA580C; }
 
-    .ticket-top {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .discount-value {
-      font-size: 1.45rem; font-weight: 800; color: var(--accent-green); line-height: 1;
-    }
-    
-    /* TAGS VISUAIS SUAVES */
-    .badge {
-      font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
-      text-transform: uppercase; letter-spacing: 0.02em;
-    }
-    .badge.seller { background: #F3E8FF; color: #7C3AED; }
-    .badge.site { background: #DCFCE7; color: #15803D; }
-    .badge.moda { background: #FCE7F3; color: #BE185D; }
-    .badge.casa { background: #FEF3C7; color: #B45309; }
-    .badge.outros { background: #DBEAFE; color: #1D4ED8; }
+    .card-rules { font-size: 0.78rem; color: var(--text-muted); line-height: 1.45; display: flex; flex-direction: column; gap: 3px; }
+    .rule-item strong { color: var(--text); }
+    .rule-alert { color: #C2410C; font-weight: 600; }
 
-    /* CORPO DO CUPOM */
-    .ticket-body { display: flex; flex-direction: column; gap: 6px; }
+    /* CTA BUTTON */
+    .btn-action {
+      background: var(--accent-yellow); color: var(--primary); border: none; border-radius: var(--radius-md);
+      padding: 10px 14px; cursor: pointer; width: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; transition: 0.15s; box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+    .btn-action:hover { background: #F5DC00; }
+    .btn-action.done { background: var(--accent-green); color: #fff; }
+    .btn-action-title { font-size: 0.85rem; font-weight: 800; line-height: 1.2; }
+    .btn-action-sub { font-size: 0.68rem; font-weight: 600; opacity: 0.85; }
 
-    .code-pill-row {
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    /* FOOTER FLUTUANTE */
+    .floating-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; background: #FFFFFF; border-top: 1px solid var(--border);
+      padding: 10px 16px; z-index: 99; display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
     }
-    .code-box {
-      background: #F8FAFC; border: 1px dashed #CBD5E1; padding: 4px 10px;
-      border-radius: 6px; font-size: 0.95rem; font-weight: 800; color: var(--primary);
-      letter-spacing: 0.05em; display: inline-block;
-    }
-    .code-box.masked { filter: blur(4px); user-select: none; }
-
-    .proof-tag {
-      font-size: 0.7rem; font-weight: 700; color: #047857; display: inline-flex;
-      align-items: center; gap: 3px; background: #ECFDF5; padding: 3px 8px; border-radius: 20px;
-    }
-
-    .rules-txt {
-      font-size: 0.75rem; color: var(--text-muted); line-height: 1.35; margin-top: 2px;
-    }
-    .rules-txt strong { color: var(--text); }
-    .rules-alert { color: #C2410C; font-size: 0.72rem; font-weight: 600; display: block; margin-top: 2px; }
-
-    /* BOTÃO DE AÇÃO DIRETO */
-    .btn-redeem {
-      background: var(--accent-yellow); color: var(--primary); border: none;
-      border-radius: 12px; padding: 11px 16px; font-size: 0.86rem; font-weight: 800;
-      cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center;
-      gap: 6px; transition: all 0.15s; box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-    }
-    .btn-redeem:active { transform: scale(0.98); }
-    .btn-redeem.copied { background: var(--accent-green); color: #FFFFFF; }
-
-    /* FOOTER FIXO DE RETENÇÃO (WHATSAPP) */
-    .bottom-bar {
-      position: fixed; bottom: 0; left: 0; right: 0; background: #FFFFFF;
-      border-top: 1px solid var(--border); padding: 8px 16px; z-index: 99;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 -3px 12px rgba(0,0,0,0.05);
-    }
-    .bottom-bar-inner {
-      max-width: 900px; margin: 0 auto; width: 100%; display: flex;
-      align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .bottom-txt { font-size: 0.78rem; font-weight: 700; color: var(--text); }
-    .bottom-txt span { display: block; font-size: 0.7rem; font-weight: 500; color: var(--text-muted); }
-    .btn-wpp {
-      background: #25D366; color: #FFFFFF; font-size: 0.8rem; font-weight: 800;
-      padding: 8px 16px; border-radius: 30px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+    .floating-inner { max-width: 1040px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .floating-text { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .floating-text span { font-weight: 500; color: var(--text-muted); display: block; font-size: 0.72rem; }
+    .btn-wpp-float {
+      background: #25D366; color: #FFFFFF; font-size: 0.82rem; font-weight: 700; padding: 8px 16px;
+      border-radius: 50px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
     }
 
     #toast {
-      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-      background: #0F172A; color: #FFF; padding: 9px 18px; border-radius: 30px;
-      font-size: 0.8rem; font-weight: 700; display: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #0F172A; color: #fff;
+      padding: 10px 20px; border-radius: 50px; font-size: 0.82rem; font-weight: 600; display: none; z-index: 1000;
     }
   </style>
 </head>
@@ -159,41 +147,74 @@
 
 <header>
   <div class="header-inner">
-    <a href="#" class="brand-title">Achado Oficial 🇧🇷</a>
-    <a href="https://www.achadoficialbr.com.br" target="_blank" class="btn-site-link">
-      Ver Promoções ↗
+    <a href="#" class="brand">
+      <span class="brand-title">Achado Oficial 🇧🇷</span>
+    </a>
+    <a href="https://www.mercadolivre.com.br/social/achadoficial" target="_blank" class="btn-header">
+      Perfil Mercado Livre ↗
     </a>
   </div>
 </header>
 
-<div class="filter-bar">
-  <div class="filter-scroll">
-    <button class="chip active" onclick="filtrar('all', this)">Todos <span class="num" id="cnt-all">0</span></button>
-    <button class="chip" onclick="filtrar('Sellers', this)">Seleção de Lojas <span class="num" id="cnt-sellers">0</span></button>
-    <button class="chip" onclick="filtrar('site', this)">Todo o Site <span class="num" id="cnt-site">0</span></button>
-    <button class="chip" onclick="filtrar('Moda', this)">Moda <span class="num" id="cnt-moda">0</span></button>
-    <button class="chip" onclick="filtrar('Casa', this)">Casa & Cozinha <span class="num" id="cnt-casa">0</span></button>
-    <button class="chip" onclick="filtrar('Outros', this)">Outros <span class="num" id="cnt-outros">0</span></button>
+<section class="hero">
+  <div class="hero-container">
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>Escolha o Cupom</h4>
+          <p>Confira a regra de compra mínima e teto.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>Abra a Lista Oficial</h4>
+          <p>O código é copiado e os itens elegíveis abrem.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>Cole no Carrinho</h4>
+          <p>Desconto aplicado na finalização dos itens.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toolbar-wrap">
+  <div class="toolbar">
+    <div class="filter-chips">
+      <button class="chip active" onclick="filtrar('all', this)">Todos <span class="count" id="cnt-all">0</span></button>
+      <button class="chip" onclick="filtrar('site', this)">Todo o Site <span class="count" id="cnt-site">0</span></button>
+      <button class="chip" onclick="filtrar('Sellers', this)">Seleção de Lojas <span class="count" id="cnt-sellers">0</span></button>
+      <button class="chip" onclick="filtrar('Moda', this)">Moda <span class="count" id="cnt-moda">0</span></button>
+      <button class="chip" onclick="filtrar('Casa', this)">Casa & Decoração <span class="count" id="cnt-casa">0</span></button>
+      <button class="chip" onclick="filtrar('Outros', this)">Outros <span class="count" id="cnt-outros">0</span></button>
+    </div>
+    <input type="search" id="busca" class="search-input" placeholder="Buscar cupom..." oninput="buscar()"/>
   </div>
 </div>
 
 <main class="container">
-  <div class="grid" id="gridCupons"></div>
+  <div class="cupons-grid" id="gridCupons"></div>
 </main>
 
-<div class="bottom-bar">
-  <div class="bottom-bar-inner">
-    <div class="bottom-txt">
-      Cupons com verba limitada
-      <span>Avisamos no WhatsApp assim que abrir novo cupom</span>
+<div class="floating-bar">
+  <div class="floating-inner">
+    <div class="floating-text">
+      Novos cupons liberados todos os dias
+      <span>Seja avisado no WhatsApp assim que abrir nova verba</span>
     </div>
-    <a href="https://www.achadoficial.com.br/achado-oficial" target="_blank" class="btn-wpp">
-      Entrar no Grupo
+    <a href="https://www.achadoficial.com.br/achado-oficial" target="_blank" class="btn-wpp-float">
+      Entrar no Grupo VIP
     </a>
   </div>
 </div>
 
-<div id="toast">Código copiado! Abrindo produtos...</div>
+<div id="toast">Código copiado! Abrindo produtos participantes...</div>
 
 <script>
 const MATT_TOOL = "52184482";
@@ -244,21 +265,26 @@ function comissionar(urlOriginal) {
 }
 
 function identificarCategoria(c) {
-  if (c.is_mar_aberto) return { key: 'site', label: 'Todo o Site', class: 'site' };
-  if (/sellers/i.test(c.acao)) return { key: 'Sellers', label: 'Seleção de Lojas', class: 'seller' };
-  if (/fashion/i.test(c.acao)) return { key: 'Moda', label: 'Moda', class: 'moda' };
-  if (/furnishing|houseware/i.test(c.acao)) return { key: 'Casa', label: 'Casa & Cozinha', class: 'casa' };
-  return { key: 'Outros', label: (c.acao || 'Especial'), class: 'outros' };
+  if (c.is_mar_aberto) return { key: 'site', label: '🌐 Todo o Site', class: 'site' };
+  if (/sellers/i.test(c.acao)) return { key: 'Sellers', label: '🏷️ Seleção de Lojas', class: 'seller' };
+  if (/fashion/i.test(c.acao)) return { key: 'Moda', label: '👗 Categoria Moda', class: 'moda' };
+  if (/furnishing|houseware/i.test(c.acao)) return { key: 'Casa', label: '🏠 Casa & Cozinha', class: 'casa' };
+  return { key: 'Outros', label: `📦 ${c.acao || 'Especial'}`, class: 'outros' };
 }
 
-function calcularUsos(nome, desc) {
-  let h = 0;
-  for (let i = 0; i < nome.length; i++) h = nome.charCodeAt(i) + ((h << 5) - h);
-  const d = parseInt(desc) || 20;
-  return (d >= 30 ? 320 : (d >= 20 ? 180 : 80)) + Math.abs(h % 140);
+function calcularUsosHoje(nome, descontoStr) {
+  let hash = 0;
+  for (let i = 0; i < nome.length; i++) {
+    hash = nome.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const descNum = parseInt(descontoStr) || 20;
+  const base = descNum >= 30 ? 320 : (descNum >= 20 ? 180 : 70);
+  const variacao = Math.abs(hash % 160);
+  return base + variacao;
 }
 
 let filtroAtual = 'all';
+let buscaAtual = '';
 
 function atualizarContadores() {
   document.getElementById("cnt-all").textContent = COUPONS.length;
@@ -275,43 +301,53 @@ function renderizar() {
   grid.innerHTML = "";
 
   const filtrados = COUPONS.filter(c => {
-    if (filtroAtual === 'site') return c.is_mar_aberto;
-    if (filtroAtual === 'Sellers') return !c.is_mar_aberto && /sellers/i.test(c.acao);
-    if (filtroAtual === 'Moda') return !c.is_mar_aberto && /fashion/i.test(c.acao);
-    if (filtroAtual === 'Casa') return !c.is_mar_aberto && /furnishing|houseware/i.test(c.acao);
-    if (filtroAtual === 'Outros') return !c.is_mar_aberto && !/sellers|fashion|furnishing|houseware/i.test(c.acao);
-    return true;
+    let matchFiltro = true;
+    if (filtroAtual === 'site') matchFiltro = c.is_mar_aberto;
+    else if (filtroAtual === 'Sellers') matchFiltro = !c.is_mar_aberto && /sellers/i.test(c.acao);
+    else if (filtroAtual === 'Moda') matchFiltro = !c.is_mar_aberto && /fashion/i.test(c.acao);
+    else if (filtroAtual === 'Casa') matchFiltro = !c.is_mar_aberto && /furnishing|houseware/i.test(c.acao);
+    else if (filtroAtual === 'Outros') matchFiltro = !c.is_mar_aberto && !/sellers|fashion|furnishing|houseware/i.test(c.acao);
+
+    const matchBusca = c.nome.toLowerCase().includes(buscaAtual) || (c.acao || '').toLowerCase().includes(buscaAtual);
+    return matchFiltro && matchBusca;
   });
 
   if (filtrados.length === 0) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:40px 16px;color:var(--text-muted);font-size:0.85rem;">Nenhum cupom disponível nesta categoria.</p>`;
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--text-muted);font-weight:600;">Nenhum cupom encontrado para essa categoria ou busca.</p>`;
     return;
   }
 
   filtrados.forEach((c, i) => {
     const cat = identificarCategoria(c);
     const linkFinal = comissionar(c.container_url);
-    const usos = calcularUsos(c.nome, c.valor_desconto);
+    const qtdUsos = calcularUsosHoje(c.nome, c.valor_desconto);
 
     const card = document.createElement("div");
-    card.className = "ticket";
+    card.className = "cupom-card";
     card.innerHTML = `
       <div>
-        <div class="ticket-top">
-          <span class="discount-value">${c.valor_desconto} OFF</span>
-          <span class="badge ${cat.class}">${cat.label}</span>
+        <div class="card-top">
+          <span class="desconto-tag">${c.valor_desconto} OFF</span>
+          <span class="pill-scope ${cat.class}">${cat.label}</span>
         </div>
-        <div class="ticket-body">
-          <div class="code-pill-row">
-            <span class="code-box masked" id="c-${i}">${c.nome.substring(0, 3)}••••</span>
-            <span class="proof-tag">✓ Verificado · 🔥 ${usos} resgates</span>
+        <div class="card-body">
+          <div class="code-row">
+            <div class="coupon-code-box">
+              <span class="code-text masked" id="c-${i}">${c.nome.substring(0, 3)}••••</span>
+            </div>
+            <div class="social-proof">
+              ✓ Verificado hoje · <span class="fire">🔥 ${qtdUsos} usados</span>
+            </div>
           </div>
-          <p class="rules-txt">Mínimo de <strong>R$ ${c.min_compra}</strong> · Teto de <strong>R$ ${c.desconto_max}</strong></p>
-          <span class="rules-alert">⚠️ Válido exclusivamente na lista oficial</span>
+          <div class="card-rules">
+            <div class="rule-item">📌 Mínimo de <strong>R$ ${c.min_compra}</strong> · Teto de <strong>R$ ${c.desconto_max}</strong></div>
+            <div class="rule-item rule-alert">⚠️ Válido exclusivamente nos produtos da lista oficial.</div>
+          </div>
         </div>
       </div>
-      <button class="btn-redeem" id="btn-${i}" onclick="resgatar(${i}, '${c.nome}', '${linkFinal}')">
-        Copiar código & Abrir lista ↗
+      <button class="btn-action" id="btn-${i}" onclick="resgatar(${i}, '${c.nome}', '${linkFinal}')">
+        <span class="btn-action-title">Copiar Código & Ver Produtos</span>
+        <span class="btn-action-sub">Abre a lista oficial em nova aba ↗</span>
       </button>
     `;
     grid.appendChild(card);
@@ -331,13 +367,13 @@ function resgatar(idx, codigo, url) {
 
   const btn = document.getElementById(`btn-${idx}`);
   if (btn) {
-    btn.textContent = "✓ Código copiado!";
-    btn.classList.add('copied');
+    btn.innerHTML = `<span class="btn-action-title">✓ Código Copiado!</span><span class="btn-action-sub">Cole no checkout do Mercado Livre</span>`;
+    btn.classList.add('done');
   }
 
   const toast = document.getElementById("toast");
   toast.style.display = "block";
-  setTimeout(() => { toast.style.display = "none"; }, 2500);
+  setTimeout(() => { toast.style.display = "none"; }, 3000);
 
   window.open(url, '_blank');
 }
@@ -346,6 +382,11 @@ function filtrar(tipo, el) {
   filtroAtual = tipo;
   document.querySelectorAll(".chip").forEach(b => b.classList.remove("active"));
   el.classList.add("active");
+  renderizar();
+}
+
+function buscar() {
+  buscaAtual = document.getElementById("busca").value.toLowerCase().trim();
   renderizar();
 }
 
