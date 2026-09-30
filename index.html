@@ -1,296 +1,446 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cupons e Ofertas Mercado Livre | Achados Oficial</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cupons Afiliados — Achados Oficial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ml-yellow: #FFE600;
-      --ml-blue: #2D3277;
-      --ml-green: #00A650;
-      --bg: #F4F5F7;
-      --card-bg: #FFFFFF;
-      --text: #222222;
-      --text-muted: #666666;
-      --border: #E2E4E8;
+      --yellow: #FFE600;
+      --yellow-dark: #E6CF00;
+      --blue: #0A0080;
+      --blue-mid: #1A0099;
+      --white: #FFFFFF;
+      --bg: #F7F7F7;
+      --text: #1A1A1A;
+      --muted: #666;
+      --border: #E8E8E8;
+      --green: #00A650;
+      --red: #E8003C;
+      --orange: #FF6000;
+      --radius-pill: 50px;
+      --radius-card: 14px;
     }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', Arial, sans-serif; background: var(--bg); color: var(--text); padding-bottom: 60px; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 80px; }
+    /* HEADER */
+    .hdr { background: var(--yellow); padding: 0 20px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+    .hdr-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .hdr-pill { background: var(--blue); color: var(--yellow); font-size: 13px; font-weight: 900; padding: 6px 16px; border-radius: var(--radius-pill); }
+    .hdr-sub { font-size: 12px; font-weight: 700; color: var(--blue); opacity: .75; text-transform: uppercase; letter-spacing: .06em; }
+    .hdr-social { font-size: 11px; font-weight: 800; color: var(--blue); text-decoration: none; border: 2px solid var(--blue); padding: 5px 12px; border-radius: 50px; transition: 0.2s; }
+    .hdr-social:hover { background: var(--blue); color: var(--yellow); }
 
-    header { background-color: var(--ml-yellow); padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .header-content { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.25rem; font-weight: 800; color: var(--ml-blue); text-decoration: none; }
-    .logo span { color: #d60000; }
+    /* HERO */
+    .hero { background: var(--blue); padding: 32px 20px 28px; }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .hero-left h1 { font-size: clamp(22px,3.5vw,36px); font-weight: 900; color: var(--white); line-height: 1.15; }
+    .hero-left h1 span { color: var(--yellow); }
+    .hero-left p { font-size: 13px; color: rgba(255,255,255,.7); margin-top: 6px; font-weight: 600; }
+    .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .hero-stat { background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,230,0,.25); border-radius: var(--radius-pill); padding: 8px 16px; display: flex; flex-direction: column; align-items: center; }
+    .hero-stat-n { font-size: 22px; font-weight: 900; color: var(--yellow); line-height: 1; }
+    .hero-stat-l { font-size: 9px; font-weight: 700; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .08em; }
+
+    /* TOOLBAR */
+    .toolbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 12px 20px; position: sticky; top: 64px; z-index: 90; }
+    .toolbar-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { background: var(--white); border: 2px solid var(--border); color: var(--muted); font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: var(--radius-pill); cursor: pointer; transition: all .15s; white-space: nowrap; }
+    .filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .filter-btn.active { background: var(--blue); border-color: var(--blue); color: var(--yellow); }
+    .search { margin-left: auto; padding: 8px 16px; border: 2px solid var(--border); border-radius: var(--radius-pill); font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; outline: none; width: 220px; }
+    .search:focus { border-color: var(--blue); }
+
+    /* LIST */
+    .list-wrap { max-width: 1100px; margin: 20px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    /* CARD COM CUPOM OCULTO E RESGATE */
+    .card { background: var(--white); border-radius: var(--radius-card); border: 1.5px solid var(--border); display: grid; grid-template-columns: 105px 1fr 165px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+    .card.site { border-left: 5px solid var(--green); }
+    .card.hoje { border-left: 5px solid var(--red); }
+    .card.breve { border-left: 5px solid var(--orange); }
+
+    .card-badge { background: var(--blue); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; }
+    .card.hoje .card-badge { background: var(--red); }
+    .card.site .card-badge { background: var(--green); }
+    .badge-n { font-size: 32px; font-weight: 900; color: var(--yellow); line-height: 1; }
+    .card.hoje .badge-n, .card.site .badge-n { color: var(--white); }
+    .badge-unit { font-size: 12px; font-weight: 800; color: rgba(255,230,0,.8); }
+    .card.hoje .badge-unit, .card.site .badge-unit { color: rgba(255,255,255,.8); }
+
+    .card-body { padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .card-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .coupon-name { font-size: 18px; font-weight: 900; color: var(--text); letter-spacing: .02em; }
+    .coupon-name.oculto { filter: blur(4px); user-select: none; background: #EEE; border-radius: 4px; padding: 0 4px; }
     
-    .btn-wpp {
-      background-color: #2D3277; color: #fff; font-weight: 700; font-size: 0.85rem;
-      padding: 9px 16px; border-radius: 20px; text-decoration: none; display: flex; align-items: center; gap: 6px;
+    .pill-tag { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); text-transform: uppercase; }
+    .pill-site { background: #E6F9EE; color: var(--green); }
+    .pill-cat { background: #EFEFFF; color: var(--blue); }
+    .pill-hot { background: #FFF0E6; color: var(--orange); }
+    .pill-expira { background: #FFE6EC; color: var(--red); }
+
+    .card-nums { display: flex; gap: 16px; flex-wrap: wrap; }
+    .num-item { display: flex; flex-direction: column; }
+    .num-label { font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--muted); }
+    .num-val { font-size: 14px; font-weight: 800; color: var(--text); }
+    .num-val.green { color: var(--green); }
+
+    .card-footer { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--muted); }
+
+    /* ACTION BUTTON (CLICK TO REVEAL) */
+    .card-action { padding: 16px; display: flex; align-items: center; justify-content: center; border-left: 1px solid var(--border); background: #FAFAFA; }
+    .btn-resgatar {
+      background: var(--yellow); border: none; border-radius: var(--radius-pill); padding: 12px 14px;
+      font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 900; color: var(--blue);
+      cursor: pointer; transition: 0.15s; width: 100%; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
+    .btn-resgatar:hover { background: var(--yellow-dark); transform: scale(1.02); }
+    .btn-resgatar.copiado { background: var(--green); color: #fff; }
 
-    .container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    .empty { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 14px; font-weight: 700; background: var(--white); border-radius: var(--radius-card); display: none; }
+    .empty.show { display: block; }
+    .footer { text-align: center; padding: 24px; font-size: 12px; font-weight: 600; color: var(--muted); }
 
-    .hero { text-align: center; margin-bottom: 24px; }
-    .hero h1 { font-size: 1.6rem; color: var(--ml-blue); margin-bottom: 6px; }
-    .status-box {
-      display: inline-flex; align-items: center; gap: 6px; background-color: #E8F7EE; color: var(--ml-green);
-      font-size: 0.78rem; font-weight: 700; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px;
-    }
-
-    .search-box {
-      width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--border);
-      font-size: 0.95rem; margin-bottom: 16px; outline: none; background: #fff;
-    }
-
-    .cupons-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media(min-width: 650px) { .cupons-grid { grid-template-columns: 1fr 1fr; } }
-
-    .cupom-card {
-      background: var(--card-bg); border-radius: 16px; padding: 18px;
-      border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.02);
-    }
-
-    .tag-desconto {
-      align-self: flex-start; background: #FFF4E5; color: #D96B00;
-      font-weight: 800; font-size: 0.85rem; padding: 5px 12px; border-radius: 8px; margin-bottom: 8px;
-    }
-    .cupom-info h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--text); }
-    .cupom-info p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 16px; }
-
-    .cupom-action {
-      background: #F8F9FA; border: 2px dashed #D0D5DD; border-radius: 12px;
-      display: flex; align-items: center; justify-content: space-between; padding: 6px 6px 6px 14px;
-    }
-    .cupom-code { font-weight: 800; font-size: 0.95rem; color: var(--ml-blue); letter-spacing: 1px; }
-    .cupom-code.oculto { filter: blur(5px); user-select: none; }
-
-    .btn-pegar {
-      background-color: var(--ml-green); color: #fff; border: none; padding: 10px 18px;
-      border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;
-    }
-    .btn-pegar.revelado { background-color: var(--ml-blue); }
-
-    .loading-spinner {
-      text-align: center; padding: 40px; color: var(--text-muted); font-size: 1rem;
-    }
-
-    #toast {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-      background: #1F2937; color: #fff; padding: 12px 24px; border-radius: 30px;
-      font-size: 0.88rem; font-weight: 600; display: none; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    @media (max-width: 768px) {
+      .card { grid-template-columns: 80px 1fr; }
+      .card-action { grid-column: 1 / -1; border-left: none; border-top: 1px solid var(--border); padding: 10px 16px; }
+      .search { width: 100%; margin-left: 0; margin-top: 6px; }
+      .badge-n { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-content">
-      <a href="#" class="logo">Achados<span>Oficial</span></a>
-      <a href="https://www.mercadolivre.com.br/social/achadoficial" target="_blank" class="btn-wpp">
-        Perfil Mercado Livre
-      </a>
+<header class="hdr">
+  <a class="hdr-logo" href="#">
+    <div class="hdr-pill">Achados Oficial</div>
+    <span class="hdr-sub">Cupons ML</span>
+  </a>
+  <a class="hdr-social" href="https://www.mercadolivre.com.br/social/achadoficial" target="_blank">
+    Meu Perfil ML
+  </a>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <h1>Cupons Mercado Livre<br><span>com Lista Direta</span></h1>
+      <p id="subtitulo-data">Atualização automática ativa</p>
     </div>
-  </header>
-
-  <div class="container">
-    <div class="hero">
-      <div class="status-box" id="statusAtualizacao">● Atualizado automaticamente</div>
-      <h1>Cupons de Desconto Mercado Livre</h1>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">Clique no cupom para copiar o código e acessar os produtos participantes.</p>
-    </div>
-
-    <input type="text" id="buscaInput" class="search-box" placeholder="Buscar por produto, categoria ou código..." onkeyup="filtrarCupons()">
-
-    <div id="loading" class="loading-spinner">Carregando cupons disponíveis...</div>
-    <div class="cupons-grid" id="listaCupons" style="display:none;"></div>
+    <div class="hero-pills" id="hero-stats"></div>
   </div>
+</div>
 
-  <div id="toast">Cupom copiado! Abrindo produtos com desconto...</div>
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <button class="filter-btn active" data-f="all">Todos <span class="cnt" id="c-all"></span></button>
+    <button class="filter-btn" data-f="mar">🌐 Todo o site <span class="cnt" id="c-mar"></span></button>
+    <button class="filter-btn" data-f="Moda">Moda <span class="cnt" id="c-fas"></span></button>
+    <button class="filter-btn" data-f="Casa">Casa e Decoração <span class="cnt" id="c-furn"></span></button>
+    <button class="filter-btn" data-f="Sellers">Seleção Vendedores <span class="cnt" id="c-sel"></span></button>
+    <button class="filter-btn" data-f="Outros">Outros <span class="cnt" id="c-out"></span></button>
+    <input class="search" id="search" type="search" placeholder="🔍  Buscar cupom…"/>
+  </div>
+</div>
 
-  <script>
-    const MATT_TOOL = "52184482";
-    const MATT_WORD = "achadoficial";
-    const URL_FONTE = "https://afiliadosmercadolivre.github.io/cupons-afiliadosmercadolivre/";
+<div class="list-wrap">
+  <div id="list"></div>
+  <div class="empty" id="empty">Nenhum cupom encontrado para esse filtro.</div>
+</div>
 
-    let cuponsCarregados = [];
+<div class="footer">
+  Achados Oficial · Atualização direta dos Cupons Mercado Livre
+</div>
 
-    function transformarLinkAfiliado(urlOriginal) {
-      if (!urlOriginal || urlOriginal === "#" || urlOriginal.startsWith("javascript")) {
-        return `https://www.mercadolivre.com.br/cupons?matt_tool=${MATT_TOOL}&matt_word=${MATT_WORD}&forceInApp=true`;
-      }
-      try {
-        const urlObj = new URL(urlOriginal);
-        urlObj.searchParams.set("matt_tool", MATT_TOOL);
-        urlObj.searchParams.set("matt_word", MATT_WORD);
-        urlObj.searchParams.set("forceInApp", "true");
-        return urlObj.toString();
-      } catch (e) {
-        const sep = urlOriginal.includes("?") ? "&" : "?";
-        return `${urlOriginal}${sep}matt_tool=${MATT_TOOL}&matt_word=${MATT_WORD}&forceInApp=true`;
-      }
-    }
+<script>
+// SUAS CREDENCIAIS DE AFILIADO
+const MATT_TOOL = "52184482";
+const MATT_WORD = "achadoficial";
 
-    async function buscarHTML() {
-      // Tenta 3 rotas de conexão diferentes em paralelo/sequencial
-      const rotas = [
-        `https://corsproxy.io/?${encodeURIComponent(URL_FONTE)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(URL_FONTE)}`,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(URL_FONTE)}`
-      ];
+// Base inicial garantida (com todos os cupons que você extraiu)
+let COUPONS = [
+  {"nome":"MAISOFERTA","acao":"Sellers","dia_inicio":"04/09/2026","dia_fim":"29/09/2026","valor_desconto":"30,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-3","container_name":"aff-list-3","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"TACOMVC","acao":"Sellers","dia_inicio":"04/09/2026","dia_fim":"29/09/2026","valor_desconto":"30,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-4","container_name":"aff-list-4","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"SALVEIESSA","acao":"Sellers","dia_inicio":"08/09/2026","dia_fim":"30/09/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-6","container_name":"aff-list-6","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"AGORAVAI","acao":"Sellers","dia_inicio":"08/09/2026","dia_fim":"30/09/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-7","container_name":"aff-list-7","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"COMPRAML","acao":"Sellers","dia_inicio":"08/09/2026","dia_fim":"30/09/2026","valor_desconto":"22,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-5","container_name":"aff-list-5","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"CUPONZINHO","acao":"Sellers","dia_inicio":"08/09/2026","dia_fim":"30/09/2026","valor_desconto":"22,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-8","container_name":"aff-list-8","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"COMPRACERTA","acao":"Construction & Industry","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"20%","min_compra":"19","desconto_max":"100","container_url":"","container_name":"","is_mar_aberto":false,"discount_num":20,"is_reais":false},
+  {"nome":"ECONOMIATOTAL","acao":"Vehicle Parts & Accessories","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"20%","min_compra":"79","desconto_max":"60","container_url":"","container_name":"","is_mar_aberto":false,"discount_num":20,"is_reais":false},
+  {"nome":"CUPOMLIBERADO","acao":"Fashion","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"18%","min_compra":"49","desconto_max":"50","container_url":"https://lista.mercadolivre.com.br/_Container_fashion-2026-2","container_name":"fashion-2026-2","is_mar_aberto":false,"discount_num":18,"is_reais":false},
+  {"nome":"MLMELHOROFERTA","acao":"Furnishing & Houseware","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"18%","min_compra":"79","desconto_max":"60","container_url":"https://lista.mercadolivre.com.br/_Container_fh-afiliados-2026","container_name":"fh-afiliados-2026","is_mar_aberto":false,"discount_num":18,"is_reais":false},
+  {"nome":"PROMOPRABELEZA","acao":"Beauty","dia_inicio":"24/09/2026","dia_fim":"30/09/2026","valor_desconto":"15%","min_compra":"79","desconto_max":"50","container_url":"https://lista.mercadolivre.com.br/_Container_beauty-aff","container_name":"beauty-aff","is_mar_aberto":false,"discount_num":15,"is_reais":false},
+  {"nome":"BARATINHO","acao":"Casas Bahia","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"15%","min_compra":"50","desconto_max":"200","container_url":"https://lista.mercadolivre.com.br/_Container_he-aff-1","container_name":"he-aff-1","is_mar_aberto":false,"discount_num":15,"is_reais":false},
+  {"nome":"DIADACRIANCA","acao":"Toys & Babys","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"15%","min_compra":"59","desconto_max":"50","container_url":"https://lista.mercadolivre.com.br/_Container_toys-e-babys","container_name":"toys-e-babys","is_mar_aberto":false,"discount_num":15,"is_reais":false},
+  {"nome":"TODEBOA","acao":"Magazine Luiza","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"10%","min_compra":"99","desconto_max":"300","container_url":"https://lista.mercadolivre.com.br/_Container_cupom-magalu","container_name":"cupom-magalu","is_mar_aberto":false,"discount_num":10,"is_reais":false},
+  {"nome":"MELIDATADUPLA","acao":"Kabum","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"10%","min_compra":"99","desconto_max":"300","container_url":"https://lista.mercadolivre.com.br/_Container_cupom-kabum","container_name":"cupom-kabum","is_mar_aberto":false,"discount_num":10,"is_reais":false},
+  {"nome":"MIMODODIA","acao":"Casas Bahia","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"8%","min_compra":"150","desconto_max":"300","container_url":"https://lista.mercadolivre.com.br/_Container_he-aff-2","container_name":"he-aff-2","is_mar_aberto":false,"discount_num":8,"is_reais":false},
+  {"nome":"ECONOMIALOCAL","acao":"Sellers","dia_inicio":"09/09/2026","dia_fim":"04/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-22","container_name":"aff-list-22","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"GARANTINOTOP","acao":"Sellers","dia_inicio":"09/09/2026","dia_fim":"04/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-23","container_name":"aff-list-23","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"COMPRAESPERTA","acao":"Sellers","dia_inicio":"09/09/2026","dia_fim":"04/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-21","container_name":"aff-list-21","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"PAGARPOUCO","acao":"Sellers","dia_inicio":"09/09/2026","dia_fim":"04/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-9","container_name":"aff-list-9","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"BATEUPRONTOCUPOM","acao":"Sellers","dia_inicio":"10/09/2026","dia_fim":"05/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-10","container_name":"aff-list-10","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"SAINDOBARRATO","acao":"Sellers","dia_inicio":"10/09/2026","dia_fim":"05/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-11","container_name":"aff-list-11","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"OPAECONOMIZEI","acao":"Sellers","dia_inicio":"10/09/2026","dia_fim":"05/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-12","container_name":"aff-list-12","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"APROVEITAMUITO","acao":"Sellers","dia_inicio":"11/09/2026","dia_fim":"06/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-13","container_name":"aff-list-13","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"PEGAMELI","acao":"Sellers","dia_inicio":"11/09/2026","dia_fim":"06/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-14","container_name":"aff-list-14","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"MEUMELI","acao":"Sellers","dia_inicio":"11/09/2026","dia_fim":"06/10/2026","valor_desconto":"18%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-15","container_name":"aff-list-15","is_mar_aberto":false,"discount_num":18,"is_reais":false},
+  {"nome":"MELIBAIXOU","acao":"Sellers","dia_inicio":"14/09/2026","dia_fim":"07/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-16","container_name":"aff-list-16","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"COMPRINHASML","acao":"Sellers","dia_inicio":"14/09/2026","dia_fim":"07/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-18","container_name":"aff-list-18","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"OFERTASMELI","acao":"Sellers","dia_inicio":"15/09/2026","dia_fim":"08/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-20","container_name":"aff-list-20","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"OFERTAAQUI","acao":"Sellers","dia_inicio":"15/09/2026","dia_fim":"08/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-19","container_name":"aff-list-19","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"APROVEITAESSA","acao":"Sellers","dia_inicio":"15/09/2026","dia_fim":"08/10/2026","valor_desconto":"20%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-21","container_name":"aff-list-21","is_mar_aberto":false,"discount_num":20,"is_reais":false},
+  {"nome":"PRECINHOBOM","acao":"Sellers","dia_inicio":"16/09/2026","dia_fim":"11/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-22","container_name":"aff-list-22","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"BATEDESCONTO","acao":"Sellers","dia_inicio":"16/09/2026","dia_fim":"11/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-23","container_name":"aff-list-23","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"DESCONTOBOM","acao":"Sellers","dia_inicio":"16/09/2026","dia_fim":"11/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-24","container_name":"aff-list-24","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"PEGANOMELI","acao":"Sellers","dia_inicio":"16/09/2026","dia_fim":"11/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-25","container_name":"aff-list-25","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"MLVANTAGEM","acao":"Sellers","dia_inicio":"17/09/2026","dia_fim":"13/10/2026","valor_desconto":"30,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-28","container_name":"aff-list-28","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"BARRATINHOAQUI","acao":"Sellers","dia_inicio":"17/09/2026","dia_fim":"13/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-27","container_name":"aff-list-27","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"COMPRANOMELI","acao":"Sellers","dia_inicio":"17/09/2026","dia_fim":"13/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-26","container_name":"aff-list-26","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"CARRINHOCHEIOJA","acao":"Sellers","dia_inicio":"18/09/2026","dia_fim":"14/10/2026","valor_desconto":"30,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-29","container_name":"aff-list-29","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"DESCONTOJUSTO","acao":"Sellers","dia_inicio":"18/09/2026","dia_fim":"14/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-31","container_name":"aff-list-31","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"VALEMUITO","acao":"Sellers","dia_inicio":"18/09/2026","dia_fim":"15/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-30","container_name":"aff-list-30","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"FOIBARATO","acao":"Sellers","dia_inicio":"24/09/2026","dia_fim":"25/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-1","container_name":"aff-list-1","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"BARRATINHOJA","acao":"Sellers","dia_inicio":"25/09/2026","dia_fim":"25/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-4","container_name":"aff-list-4","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"SAIUBARATO","acao":"Sellers","dia_inicio":"24/09/2026","dia_fim":"25/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-2","container_name":"aff-list-2","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"PRECINHOPONTO","acao":"Sellers","dia_inicio":"24/09/2026","dia_fim":"25/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-3","container_name":"aff-list-3","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"DESCONTOESPECIAL","acao":"Sellers","dia_inicio":"25/09/2026","dia_fim":"25/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-5","container_name":"aff-list-5","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"CUSTOUPOUQUINHO","acao":"Sellers","dia_inicio":"25/09/2026","dia_fim":"25/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-6","container_name":"aff-list-6","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"MELIGARANTE","acao":"Sellers","dia_inicio":"28/09/2026","dia_fim":"27/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-7","container_name":"aff-list-7","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"MELISALVA","acao":"Sellers","dia_inicio":"28/09/2026","dia_fim":"27/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-8","container_name":"aff-list-8","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"MELICOMPRA","acao":"Sellers","dia_inicio":"28/09/2026","dia_fim":"27/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-9","container_name":"aff-list-9","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"MLVANTAGENS","acao":"Sellers","dia_inicio":"28/09/2026","dia_fim":"27/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-10","container_name":"aff-list-10","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"QUEROMAIS","acao":"Sellers","dia_inicio":"01/09/2026","dia_fim":"31/10/2026","valor_desconto":"30,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-13","container_name":"aff-list-13","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"CUPOMAQUI","acao":"Sellers","dia_inicio":"03/09/2026","dia_fim":"31/10/2026","valor_desconto":"30,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-1","container_name":"aff-list-1","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"MLCOMPRANDO","acao":"Sellers","dia_inicio":"18/09/2026","dia_fim":"31/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-32","container_name":"aff-list-32","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"MELICOMPRAS","acao":"Sellers","dia_inicio":"22/09/2026","dia_fim":"31/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-33","container_name":"aff-list-33","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"MELIDESCONTEI","acao":"Sellers","dia_inicio":"22/09/2026","dia_fim":"31/10/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-36","container_name":"aff-list-36","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"DESCONTOSML","acao":"Sellers","dia_inicio":"01/09/2026","dia_fim":"31/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-14","container_name":"aff-list-14","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"SEMPREML","acao":"Sellers","dia_inicio":"01/09/2026","dia_fim":"31/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-15","container_name":"aff-list-15","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"VIPAQUI","acao":"Sellers","dia_inicio":"02/09/2026","dia_fim":"31/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-17","container_name":"aff-list-17","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"ACHEIOFF","acao":"Sellers","dia_inicio":"03/09/2026","dia_fim":"31/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-19","container_name":"aff-list-19","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"MELHORESCUPONS","acao":"Sellers","dia_inicio":"03/09/2026","dia_fim":"31/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-20","container_name":"aff-list-20","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"VOLTAAQUI","acao":"Sellers","dia_inicio":"03/09/2026","dia_fim":"31/10/2026","valor_desconto":"25,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-2","container_name":"aff-list-2","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"MLCUPOM","acao":"Sellers","dia_inicio":"22/09/2026","dia_fim":"31/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-34","container_name":"aff-list-34","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"TOCOUNOML","acao":"Sellers","dia_inicio":"23/09/2026","dia_fim":"31/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-39","container_name":"aff-list-39","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"MELHORCUPOMML","acao":"Sellers","dia_inicio":"23/09/2026","dia_fim":"31/10/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-40","container_name":"aff-list-40","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"CARRINHOCHEIO","acao":"Sellers","dia_inicio":"02/09/2026","dia_fim":"31/10/2026","valor_desconto":"22,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-18","container_name":"aff-list-18","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"MELINOCARRINHO","acao":"Sellers","dia_inicio":"22/09/2026","dia_fim":"31/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-35","container_name":"aff-list-35","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"MELICOMPRAAI","acao":"Sellers","dia_inicio":"23/09/2026","dia_fim":"31/10/2026","valor_desconto":"22%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-38","container_name":"aff-list-38","is_mar_aberto":false,"discount_num":22,"is_reais":false},
+  {"nome":"PROMONOMELI","acao":"Sellers","dia_inicio":"02/09/2026","dia_fim":"31/10/2026","valor_desconto":"18,00%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-16","container_name":"aff-list-16","is_mar_aberto":false,"discount_num":18,"is_reais":false},
+  {"nome":"MELINOVALE","acao":"Sellers","dia_inicio":"23/09/2026","dia_fim":"31/10/2026","valor_desconto":"18%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-37","container_name":"aff-list-37","is_mar_aberto":false,"discount_num":18,"is_reais":false},
+  {"nome":"DESCONTOMELI","acao":"Sellers","dia_inicio":"29/09/2026","dia_fim":"02/11/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-17","container_name":"aff-list-17","is_mar_aberto":false,"discount_num":30,"is_reais":false},
+  {"nome":"OFFNOMELI","acao":"Sellers","dia_inicio":"29/09/2026","dia_fim":"02/11/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-14","container_name":"aff-list-14","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"SONOMELI","acao":"Sellers","dia_inicio":"29/09/2026","dia_fim":"02/11/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-15","container_name":"aff-list-15","is_mar_aberto":false,"discount_num":25,"is_reais":false},
+  {"nome":"VEMPROMELI","acao":"Sellers","dia_inicio":"29/09/2026","dia_fim":"02/11/2026","valor_desconto":"25%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-16","container_name":"aff-list-16","is_mar_aberto":false,"discount_num":25,"is_reais":false}
+];
 
-      for (let url of rotas) {
-        try {
-          const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
-          if (res.ok) {
-            const text = await res.text();
-            if (text && text.length > 200) return text;
+// Injeta seu parâmetro de afiliado em qualquer URL de lista
+function comissionar(urlOriginal) {
+  if (!urlOriginal || urlOriginal === "#") {
+    urlOriginal = "https://www.mercadolivre.com.br/";
+  }
+  const separador = urlOriginal.includes('?') ? '&' : '?';
+  return `${urlOriginal}${separador}matt_tool=${MATT_TOOL}&matt_word=${MATT_WORD}&forceInApp=true`;
+}
+
+function dl(s){
+  const[d,m,y]=s.split('/').map(Number);
+  return Math.round((new Date(y,m-1,d)-new Date(new Date().toDateString()))/86400000);
+}
+
+function expInfo(c){
+  const d=dl(c.dia_fim);
+  if(d<0)return{l:'Expirado',cls:''};
+  if(d===0)return{l:'Expira hoje',cls:'hoje'};
+  if(d<=3)return{l:d+'d restantes',cls:'breve'};
+  return{l:'Válido até '+c.dia_fim,cls:'ok'};
+}
+
+function cat(a){
+  if(/fashion/i.test(a))return'Moda';
+  if(/furnishing|houseware|furniture|living|dining/i.test(a))return'Casa e Decoração';
+  if(/sellers/i.test(a))return'Seleção Vendedores';
+  if(/mar aberto/i.test(a))return'Outros';
+  return a || 'Outros';
+}
+
+function cardCls(c){
+  if(c.is_mar_aberto)return'site';
+  const d=dl(c.dia_fim);
+  if(d===0)return'hoje';
+  if(d<=3)return'breve';
+  return'';
+}
+
+let af='all', sq='';
+
+function matches(c){
+  if(af==='mar'&&!c.is_mar_aberto)return false;
+  if(af==='Moda'&&cat(c.acao)!=='Moda')return false;
+  if(af==='Casa'&&cat(c.acao)!=='Casa e Decoração')return false;
+  if(af==='Sellers'&&cat(c.acao)!=='Seleção Vendedores')return false;
+  if(af==='Outros'){
+    const knownCats=['Moda','Casa e Decoração','Seleção Vendedores'];
+    if(c.is_mar_aberto||knownCats.includes(cat(c.acao)))return false;
+  }
+  if(sq){
+    const q=sq.toLowerCase();
+    return c.nome.toLowerCase().includes(q)||(c.container_name||'').toLowerCase().includes(q)||(c.acao||'').toLowerCase().includes(q);
+  }
+  return true;
+}
+
+function renderCard(c, index){
+  const exp=expInfo(c), cls=cardCls(c);
+  const catLabel=c.is_mar_aberto?'Todo o site':cat(c.acao);
+  const catCls=c.is_mar_aberto?'pill-site':'pill-cat';
+  const hotTag=(!c.is_reais && c.discount_num>=25)?'<span class="pill-tag pill-hot">🔥 Destaque</span>':'';
+  const expTag=cls==='hoje'||cls==='breve'?`<span class="pill-tag pill-expira">${exp.l}</span>`:'';
+  const badgeUnit=c.is_reais?'R$ OFF':'% OFF';
+  const linkDestino = comissionar(c.container_url);
+
+  return `
+  <div class="card ${cls}">
+    <div class="card-badge">
+      <div class="badge-n">${c.discount_num}</div>
+      <div class="badge-unit">${badgeUnit}</div>
+    </div>
+    <div class="card-body">
+      <div class="card-top">
+        <span class="coupon-name oculto" id="code-${index}">${c.nome.substring(0, 3)}••••</span>
+        <span class="pill-tag ${catCls}">${catLabel}</span>
+        ${hotTag}${expTag}
+      </div>
+      <div class="card-nums">
+        <div class="num-item"><span class="num-label">Desconto</span><span class="num-val green">${c.valor_desconto}</span></div>
+        <div class="num-item"><span class="num-label">Mínimo</span><span class="num-val">R$${c.min_compra}</span></div>
+        <div class="num-item"><span class="num-label">Desconto Máx.</span><span class="num-val">R$${c.desconto_max}</span></div>
+      </div>
+      <div class="card-footer">
+        <span>📅 ${c.dia_inicio} até ${c.dia_fim}</span>
+      </div>
+    </div>
+    <div class="card-action">
+      <button class="btn-resgatar" id="btn-${index}" onclick="resgatarCupom(${index}, '${c.nome}', '${linkDestino}')">
+        Pegar Cupom
+      </button>
+    </div>
+  </div>`;
+}
+
+function resgatarCupom(idx, codigo, urlFinal) {
+  // 1. Copia o código para a área de transferência
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(codigo);
+  } else {
+    const e = document.createElement('textarea');
+    e.value = codigo;
+    document.body.appendChild(e);
+    e.select();
+    document.execCommand('copy');
+    e.remove();
+  }
+
+  // 2. Revela o código
+  const el = document.getElementById(`code-${idx}`);
+  if (el) {
+    el.textContent = codigo;
+    el.classList.remove('oculto');
+  }
+
+  // 3. Atualiza o botão
+  const btn = document.getElementById(`btn-${idx}`);
+  if (btn) {
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copiado');
+  }
+
+  // 4. Abre a lista do cupom com o seu link comissionado
+  window.open(urlFinal, '_blank');
+}
+
+function counts(){
+  const n=COUPONS;
+  document.getElementById('c-all').textContent=n.length;
+  document.getElementById('c-mar').textContent=n.filter(c=>c.is_mar_aberto).length;
+  document.getElementById('c-fas').textContent=n.filter(c=>cat(c.acao)==='Moda').length;
+  document.getElementById('c-furn').textContent=n.filter(c=>cat(c.acao)==='Casa e Decoração').length;
+  document.getElementById('c-sel').textContent=n.filter(c=>cat(c.acao)==='Seleção Vendedores').length;
+  document.getElementById('c-out').textContent=n.filter(c=>{
+    const knownCats=['Moda','Casa e Decoração','Seleção Vendedores'];
+    return !c.is_mar_aberto && !knownCats.includes(cat(c.acao));
+  }).length;
+  
+  const maxD=n.length?Math.max(...n.map(c=>c.discount_num)):0;
+  const hoje=n.filter(c=>dl(c.dia_fim)===0).length;
+  
+  document.getElementById('hero-stats').innerHTML=`
+    <div class="hero-stat"><div class="hero-stat-n">${n.length}</div><div class="hero-stat-l">Cupons</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">${maxD}%</div><div class="hero-stat-l">Maior OFF</div></div>
+    ${hoje?`<div class="hero-stat"><div class="hero-stat-n" style="color:var(--red)">${hoje}</div><div class="hero-stat-l">Fim hoje</div></div>`:''}
+  `;
+}
+
+function render(){
+  const v=COUPONS.filter(matches);
+  document.getElementById('list').innerHTML=v.map(renderCard).join('');
+  document.getElementById('empty').classList.toggle('show',v.length===0);
+}
+
+// SINCRONIZAÇÃO AUTOMÁTICA EM TEMPO REAL COM A FONTE
+async function sincronizarFonte() {
+  const URL_ORIGEM = "https://afiliadosmercadolivre.github.io/cupons-afiliadosmercadolivre/";
+  const proxies = [
+    `https://corsproxy.io/?${encodeURIComponent(URL_ORIGEM)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(URL_ORIGEM)}`
+  ];
+
+  for (let url of proxies) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(3500) });
+      if (res.ok) {
+        const text = await res.text();
+        const match = text.match(/const\s+COUPONS\s*=\s*(\[[\s\S]*?\]);/);
+        if (match && match[1]) {
+          const dadosAtualizados = JSON.parse(match[1]);
+          if (dadosAtualizados.length > 0) {
+            COUPONS = dadosAtualizados;
+            document.getElementById('subtitulo-data').textContent = "● Sincronizado com a base oficial em tempo real";
+            counts();
+            render();
+            break;
           }
-        } catch (e) {
-          console.warn("Tentando próxima rota de conexão...");
         }
       }
-      return null;
+    } catch(e) {
+      // Caso a rede externa oscile, a página mantém a lista base carregada instantaneamente
     }
+  }
+}
 
-    async function carregarCupons() {
-      const html = await buscarHTML();
+// Filtros
+document.querySelectorAll('.filter-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    af=b.dataset.f;
+    render();
+  });
+});
 
-      cuponsCarregados = [];
-      let idCounter = 1;
+document.getElementById('search').addEventListener('input',e=>{
+  sq=e.target.value.trim();
+  render();
+});
 
-      if (html) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-
-        // Atualiza a barra de status com o texto da fonte
-        const headerInfo = doc.querySelector("header span");
-        if (headerInfo) {
-          document.getElementById("statusAtualizacao").innerText = "● " + headerInfo.innerText.trim();
-        }
-
-        // Procura todos os links para o Mercado Livre
-        const links = doc.querySelectorAll("a[href*='mercadolivre.com']");
-        
-        links.forEach(a => {
-          const container = a.closest("div") || a;
-          const texto = container.innerText || "";
-          
-          // Extrai código do cupom
-          const regex = /[A-Z0-9_-]{4,20}/g;
-          const matches = texto.match(regex) || [];
-          const codigo = matches.length > 0 ? matches[0] : "DESCONTO";
-
-          cuponsCarregados.push({
-            id: idCounter++,
-            codigo: codigo,
-            titulo: a.innerText.trim() || "Lista de Produtos com Cupom",
-            regra: texto.substring(0, 100).replace(codigo, "").trim() || "Válido na lista participante.",
-            desconto: "Cupom Ativo",
-            linkAfiliado: transformarLinkAfiliado(a.href)
-          });
-        });
-      }
-
-      // Se por qualquer motivo a conexão externa falhar, exibe os cupons principais de emergência
-      if (cuponsCarregados.length === 0) {
-        cuponsCarregados = [
-          {
-            id: 1,
-            codigo: "MELIEXTRA",
-            titulo: "Cupons e Ofertas Selecionadas",
-            regra: "Descontos especiais disponíveis nos itens participantes.",
-            desconto: "Até 40% OFF",
-            linkAfiliado: transformarLinkAfiliado("https://www.mercadolivre.com.br/cupons")
-          },
-          {
-            id: 2,
-            codigo: "OFERTADIA",
-            titulo: "Super Ofertas do Mercado Livre",
-            regra: "Produtos com preço reduzido e frete rápido.",
-            desconto: "Super Desconto",
-            linkAfiliado: transformarLinkAfiliado("https://www.mercadolivre.com.br/ofertas")
-          }
-        ];
-        document.getElementById("statusAtualizacao").innerText = "● Cupons atualizados hoje";
-      }
-
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("listaCupons").style.display = "grid";
-      renderizarCupons(cuponsCarregados);
-    }
-
-    function renderizarCupons(lista) {
-      const container = document.getElementById("listaCupons");
-      container.innerHTML = "";
-
-      if (lista.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:#999; grid-column: 1/-1; padding: 30px;">Nenhum cupom encontrado.</p>`;
-        return;
-      }
-
-      lista.forEach(c => {
-        const card = document.createElement("div");
-        card.className = "cupom-card";
-        const codigoOculto = c.codigo.length > 3 ? c.codigo.substring(0, 3) + "••••" : "••••";
-
-        card.innerHTML = `
-          <div>
-            <span class="tag-desconto">${c.desconto}</span>
-            <div class="cupom-info">
-              <h3>${c.titulo}</h3>
-              <p>${c.regra}</p>
-            </div>
-          </div>
-          <div class="cupom-action">
-            <span class="cupom-code oculto" id="code-${c.id}">${codigoOculto}</span>
-            <button class="btn-pegar" id="btn-${c.id}" onclick="ativarCupom(${c.id}, '${c.codigo}', '${c.linkAfiliado}')">
-              Pegar Cupom
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function ativarCupom(id, codigo, link) {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(codigo);
-      }
-
-      const codeSpan = document.getElementById(`code-${id}`);
-      codeSpan.innerText = codigo;
-      codeSpan.classList.remove('oculto');
-
-      const btn = document.getElementById(`btn-${id}`);
-      btn.innerText = "Copiado! ✓";
-      btn.classList.add('revelado');
-
-      const toast = document.getElementById("toast");
-      toast.style.display = "block";
-      setTimeout(() => { toast.style.display = "none"; }, 3500);
-
-      window.open(link, '_blank');
-    }
-
-    function filtrarCupons() {
-      const termo = document.getElementById("buscaInput").value.toLowerCase();
-      const filtrados = cuponsCarregados.filter(c => {
-        return c.titulo.toLowerCase().includes(termo) || 
-               c.codigo.toLowerCase().includes(termo) || 
-               c.regra.toLowerCase().includes(termo);
-      });
-      renderizarCupons(filtrados);
-    }
-
-    // Carrega na abertura da página
-    carregarCupons();
-
-    // Recarrega automaticamente a cada 60 minutos se a pessoa deixar a aba aberta
-    setInterval(carregarCupons, 60 * 60 * 1000);
-  </script>
+// Inicialização imediata
+counts();
+render();
+sincronizarFonte();
+</script>
 </body>
 </html>
