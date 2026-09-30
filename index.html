@@ -241,7 +241,7 @@
 
 <footer class="site-footer">
   <div class="sync-status" id="syncStatus">
-    🔄 Conectando à fonte Mercado Livre...
+    🔄 Verificando atualização...
   </div>
   <div>
     Achado Oficial participa de programas de afiliados oficiais. Os cupons, descontos e links são verificados diariamente e podem gerar comissão sem nenhum custo adicional para o comprador.
@@ -379,7 +379,7 @@ function filtrarMeli(tipo, el) {
   renderizar();
 }
 
-// SINCRONIZAÇÃO AUTOMÁTICA DO HORÁRIO COM O SITE FONTE
+// SINCRONIZAÇÃO AUTOMÁTICA DO HORÁRIO
 async function sincronizarFonteMeli() {
   const el = document.getElementById("syncStatus");
   if (!el) return;
@@ -394,29 +394,27 @@ async function sincronizarFonteMeli() {
       const mes = String(data.getMonth() + 1).padStart(2, '0');
       const hora = String(data.getHours()).padStart(2, '0');
       const min = String(data.getMinutes()).padStart(2, '0');
-      el.innerHTML = `⚡ Fonte Mercado Livre atualizada em: ${dia}/${mes} às ${hora}:${min}`;
+      el.innerHTML = `⚡ Atualizada em: ${dia}/${mes} às ${hora}:${min}`;
       return;
     }
 
     const html = await res.text();
-    // Tenta encontrar padrões como "Atualizado em...", "Última atualização: 30/09 às 15:30"
     const regexData = /(atualizad[oa]\s*(em)?[:\s]+)(\d{2}\/\d{2}[^\.\<\n]+)/i;
     const match = html.match(regexData);
     if (match && match[3]) {
-      el.innerHTML = `⚡ Fonte Mercado Livre: ${match[0].trim()}`;
+      el.innerHTML = `⚡ Atualizada em: ${match[3].trim()}`;
       return;
     }
   } catch (e) {
-    // Fallback gracioso se CORS bloquear no browser do cliente
+    // Fallback gracioso caso haja bloqueio de CORS
   }
 
-  // Fallback baseado na última verificação do dia
   const d = new Date();
   const dia = String(d.getDate()).padStart(2, '0');
   const mes = String(d.getMonth() + 1).padStart(2, '0');
   const hora = String(d.getHours()).padStart(2, '0');
   const min = String(d.getMinutes()).padStart(2, '0');
-  el.innerHTML = `⚡ Fonte Mercado Livre sincronizada em: ${dia}/${mes} às ${hora}:${min}`;
+  el.innerHTML = `⚡ Atualizada em: ${dia}/${mes} às ${hora}:${min}`;
 }
 
 function renderizar() {
