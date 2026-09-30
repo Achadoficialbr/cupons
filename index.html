@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Achado Oficial 🇧🇷 — Cupons e Ofertas</title>
+  <title>Achado Oficial 🇧🇷 — Cupons e Ofertas Exclusivas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -20,7 +20,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text-main); padding-bottom: 96px; }
+    body { background-color: var(--bg); color: var(--text-main); padding-bottom: 110px; }
 
     /* HEADER */
     header {
@@ -36,7 +36,7 @@
       text-decoration: none; display: flex; align-items: center; gap: 6px;
     }
 
-    /* ABAS DE LOJAS E LINK DO SITE */
+    /* ABAS DE LOJAS E LINK EXTERNO */
     .nav-tabs {
       max-width: 860px; margin: 0 auto; display: flex; border-top: 1px solid #F1F5F9;
       overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
@@ -63,7 +63,7 @@
       margin-left: auto; color: #BE185D; font-weight: 800; background: #FFF1F2;
     }
 
-    /* SUBFILTROS (ESPECÍFICOS DO MERCADO LIVRE) */
+    /* SUBFILTROS MERCADO LIVRE */
     .filter-bar {
       background: #FFFFFF; border-bottom: 1px solid var(--border);
       position: sticky; top: 92px; z-index: 90; padding: 8px 16px;
@@ -143,7 +143,7 @@
     .rules-list strong { color: var(--text-main); }
     .scope-note { font-size: 0.72rem; font-weight: 600; color: #B45309; }
 
-    /* DIVISÃO COM RECORTE */
+    /* DIVISÃO COM RECORTE LATERAL */
     .ticket-divider {
       height: 1px; border-top: 1px dashed #E2E8F0; margin: 0 16px; position: relative;
     }
@@ -164,7 +164,7 @@
     .btn-claim:active { transform: scale(0.98); }
     .btn-claim.copied { background: var(--accent-green); color: #FFFFFF; }
 
-    /* BARRA FIXA DO WHATSAPP */
+    /* BARRA FIXA DE RETENÇÃO (WHATSAPP) */
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: #FFFFFF;
       border-top: 1px solid var(--border); padding: 10px 16px; z-index: 99;
@@ -181,6 +181,12 @@
       background: #25D366; color: #FFFFFF; font-size: 0.82rem; font-weight: 800;
       padding: 9px 18px; border-radius: 50px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
       box-shadow: 0 2px 6px rgba(37,211,102,0.25);
+    }
+
+    /* FOOTER DE TRANSPARÊNCIA E COMPLIANCE */
+    footer.site-footer {
+      max-width: 860px; margin: 24px auto 10px; padding: 0 16px; text-align: center;
+      font-size: 0.7rem; color: #94A3B8; line-height: 1.5;
     }
 
     #toast {
@@ -227,6 +233,10 @@
 <main class="container">
   <div class="grid" id="gridCupons"></div>
 </main>
+
+<footer class="site-footer">
+  Achado Oficial participa de programas de afiliados oficiais. Os cupons, descontos e links são verificados diariamente e podem gerar comissão sem nenhum custo adicional para o comprador.
+</footer>
 
 <div class="bottom-bar">
   <div class="bottom-bar-inner">
@@ -306,7 +316,6 @@ function comissionar(cupom) {
     const sep = url.includes('?') ? '&' : '?';
     return `${url}${sep}matt_tool=${MATT_TOOL}&matt_word=${MATT_WORD}&forceInApp=true`;
   }
-  // Para Nike e Netshoes, você insere aqui o seu link de afiliada
   return url;
 }
 
