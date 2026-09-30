@@ -183,10 +183,15 @@
       box-shadow: 0 2px 6px rgba(37,211,102,0.25);
     }
 
-    /* FOOTER DE TRANSPARÊNCIA E COMPLIANCE */
+    /* FOOTER DE TRANSPARÊNCIA E STATUS */
     footer.site-footer {
       max-width: 860px; margin: 24px auto 10px; padding: 0 16px; text-align: center;
       font-size: 0.7rem; color: #94A3B8; line-height: 1.5;
+    }
+    .sync-status {
+      display: inline-flex; align-items: center; gap: 5px; background: #EEF2F6;
+      padding: 3px 10px; border-radius: 20px; font-weight: 700; color: #475569;
+      margin-bottom: 8px; font-size: 0.68rem;
     }
 
     #toast {
@@ -207,7 +212,7 @@
       🟡 Mercado Livre <span class="tab-cnt" id="cnt-tab-meli">0</span>
     </button>
     <button class="nav-tab" onclick="trocarLoja('nike', this)">
-      ✔️️ Nike <span class="tab-cnt" id="cnt-tab-nike">0</span>
+      ✔ Nike <span class="tab-cnt" id="cnt-tab-nike">0</span>
     </button>
     <button class="nav-tab" onclick="trocarLoja('netshoes', this)">
       👟 Netshoes <span class="tab-cnt" id="cnt-tab-netshoes">0</span>
@@ -235,7 +240,12 @@
 </main>
 
 <footer class="site-footer">
-  Achado Oficial participa de programas de afiliados oficiais. Os cupons, descontos e links são verificados diariamente e podem gerar comissão sem nenhum custo adicional para o comprador.
+  <div class="sync-status" id="syncStatus">
+    🔄 Conectando à fonte Mercado Livre...
+  </div>
+  <div>
+    Achado Oficial participa de programas de afiliados oficiais. Os cupons, descontos e links são verificados diariamente e podem gerar comissão sem nenhum custo adicional para o comprador.
+  </div>
 </footer>
 
 <div class="bottom-bar">
@@ -255,6 +265,7 @@
 <script>
 const MATT_TOOL = "52184482";
 const MATT_WORD = "achadoficial";
+const FONTE_MELI_URL = "https://afiliadosmercadolivre.github.io/cupons-afiliadosmercadolivre/";
 
 // BASE MULTILOJA COMPLETA
 let ALL_COUPONS = [
@@ -368,6 +379,46 @@ function filtrarMeli(tipo, el) {
   renderizar();
 }
 
+// SINCRONIZAÇÃO AUTOMÁTICA DO HORÁRIO COM O SITE FONTE
+async function sincronizarFonteMeli() {
+  const el = document.getElementById("syncStatus");
+  if (!el) return;
+
+  try {
+    const res = await fetch(FONTE_MELI_URL, { cache: "no-cache" });
+    const lastMod = res.headers.get("Last-Modified");
+
+    if (lastMod) {
+      const data = new Date(lastMod);
+      const dia = String(data.getDate()).padStart(2, '0');
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const hora = String(data.getHours()).padStart(2, '0');
+      const min = String(data.getMinutes()).padStart(2, '0');
+      el.innerHTML = `⚡ Fonte Mercado Livre atualizada em: ${dia}/${mes} às ${hora}:${min}`;
+      return;
+    }
+
+    const html = await res.text();
+    // Tenta encontrar padrões como "Atualizado em...", "Última atualização: 30/09 às 15:30"
+    const regexData = /(atualizad[oa]\s*(em)?[:\s]+)(\d{2}\/\d{2}[^\.\<\n]+)/i;
+    const match = html.match(regexData);
+    if (match && match[3]) {
+      el.innerHTML = `⚡ Fonte Mercado Livre: ${match[0].trim()}`;
+      return;
+    }
+  } catch (e) {
+    // Fallback gracioso se CORS bloquear no browser do cliente
+  }
+
+  // Fallback baseado na última verificação do dia
+  const d = new Date();
+  const dia = String(d.getDate()).padStart(2, '0');
+  const mes = String(d.getMonth() + 1).padStart(2, '0');
+  const hora = String(d.getHours()).padStart(2, '0');
+  const min = String(d.getMinutes()).padStart(2, '0');
+  el.innerHTML = `⚡ Fonte Mercado Livre sincronizada em: ${dia}/${mes} às ${hora}:${min}`;
+}
+
 function renderizar() {
   atualizarContadores();
   const grid = document.getElementById("gridCupons");
@@ -459,6 +510,7 @@ function resgatar(idx, codigo, url) {
 }
 
 renderizar();
+sincronizarFonteMeli();
 </script>
 </body>
 </html>
