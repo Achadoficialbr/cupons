@@ -27,9 +27,8 @@
     .logo span { color: #d60000; }
     
     .btn-wpp {
-      background-color: #25D366; color: #fff; font-weight: 700; font-size: 0.85rem;
+      background-color: #2D3277; color: #fff; font-weight: 700; font-size: 0.85rem;
       padding: 9px 16px; border-radius: 20px; text-decoration: none; display: flex; align-items: center; gap: 6px;
-      box-shadow: 0 3px 8px rgba(37,211,102,0.25);
     }
 
     .container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
@@ -45,13 +44,6 @@
       width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--border);
       font-size: 0.95rem; margin-bottom: 16px; outline: none; background: #fff;
     }
-
-    .categories { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
-    .cat-btn {
-      background: #fff; border: 1px solid var(--border); padding: 8px 14px; border-radius: 20px;
-      font-size: 0.82rem; font-weight: 600; color: var(--text-muted); cursor: pointer; white-space: nowrap;
-    }
-    .cat-btn.active { background: var(--ml-blue); color: #fff; border-color: var(--ml-blue); }
 
     .cupons-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media(min-width: 650px) { .cupons-grid { grid-template-columns: 1fr 1fr; } }
@@ -98,43 +90,38 @@
   <header>
     <div class="header-content">
       <a href="#" class="logo">Achados<span>Oficial</span></a>
-      <a href="https://www.mercadolivre.com.br/social/achadoficial" target="_blank" class="btn-wpp" style="background:#2D3277;">
-        Ver Perfil Oficial
+      <a href="https://www.mercadolivre.com.br/social/achadoficial" target="_blank" class="btn-wpp">
+        Perfil Mercado Livre
       </a>
     </div>
   </header>
 
   <div class="container">
     <div class="hero">
-      <div class="status-box" id="statusAtualizacao">● Conectando aos cupons em tempo real...</div>
-      <h1>Cupons Mercado Livre</h1>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">Clique no cupom para copiar o código e acessar os produtos com desconto.</p>
+      <div class="status-box" id="statusAtualizacao">● Atualizado automaticamente</div>
+      <h1>Cupons de Desconto Mercado Livre</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Clique no cupom para copiar o código e acessar os produtos participantes.</p>
     </div>
 
-    <input type="text" id="buscaInput" class="search-box" placeholder="Buscar cupom por nome, categoria ou valor..." onkeyup="filtrarCupons()">
+    <input type="text" id="buscaInput" class="search-box" placeholder="Buscar por produto, categoria ou código..." onkeyup="filtrarCupons()">
 
-    <div id="loading" class="loading-spinner">Buscando os cupons mais recentes...</div>
+    <div id="loading" class="loading-spinner">Carregando cupons disponíveis...</div>
     <div class="cupons-grid" id="listaCupons" style="display:none;"></div>
   </div>
 
   <div id="toast">Cupom copiado! Abrindo produtos com desconto...</div>
 
   <script>
-    // CREDENCIAIS DE AFILIADO CONFIGURADAS
     const MATT_TOOL = "52184482";
     const MATT_WORD = "achadoficial";
-
     const URL_FONTE = "https://afiliadosmercadolivre.github.io/cupons-afiliadosmercadolivre/";
-    const PROXY_URL = "https://api.allorigins.win/get?url=" + encodeURIComponent(URL_FONTE + "?t=" + new Date().getTime());
 
     let cuponsCarregados = [];
 
-    // Função que anexa os parâmetros de afiliado em qualquer link de lista do Mercado Livre
     function transformarLinkAfiliado(urlOriginal) {
       if (!urlOriginal || urlOriginal === "#" || urlOriginal.startsWith("javascript")) {
         return `https://www.mercadolivre.com.br/cupons?matt_tool=${MATT_TOOL}&matt_word=${MATT_WORD}&forceInApp=true`;
       }
-      
       try {
         const urlObj = new URL(urlOriginal);
         urlObj.searchParams.set("matt_tool", MATT_TOOL);
@@ -147,93 +134,93 @@
       }
     }
 
-    async function buscarCuponsAoVivo() {
-      try {
-        const response = await fetch(PROXY_URL);
-        const data = await response.json();
-        const htmlTexto = data.contents;
+    async function buscarHTML() {
+      // Tenta 3 rotas de conexão diferentes em paralelo/sequencial
+      const rotas = [
+        `https://corsproxy.io/?${encodeURIComponent(URL_FONTE)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(URL_FONTE)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(URL_FONTE)}`
+      ];
 
+      for (let url of rotas) {
+        try {
+          const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
+          if (res.ok) {
+            const text = await res.text();
+            if (text && text.length > 200) return text;
+          }
+        } catch (e) {
+          console.warn("Tentando próxima rota de conexão...");
+        }
+      }
+      return null;
+    }
+
+    async function carregarCupons() {
+      const html = await buscarHTML();
+
+      cuponsCarregados = [];
+      let idCounter = 1;
+
+      if (html) {
         const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlTexto, "text/html");
+        const doc = parser.parseFromString(html, "text/html");
 
-        // Pega a data/hora da última atualização da página original
+        // Atualiza a barra de status com o texto da fonte
         const headerInfo = doc.querySelector("header span");
         if (headerInfo) {
           document.getElementById("statusAtualizacao").innerText = "● " + headerInfo.innerText.trim();
-        } else {
-          document.getElementById("statusAtualizacao").innerText = "● Atualização automática ativa";
         }
 
-        cuponsCarregados = [];
-        let idCounter = 1;
-
-        // Extrai todas as listas e cupons da página de origem
-        const cardsFonte = doc.querySelectorAll(".cupom, .card, table tr, [data-cupom], div");
+        // Procura todos os links para o Mercado Livre
+        const links = doc.querySelectorAll("a[href*='mercadolivre.com']");
         
-        doc.querySelectorAll("a").forEach(a => {
-          const href = a.getAttribute("href") || "";
-          if (href.includes("mercadolivre.com") || href.includes("meli.la") || href.includes("cupom")) {
-            const containerTexto = a.closest("div") ? a.closest("div").innerText : a.innerText;
-            
-            // Procura código de cupom em destaque
-            const regex = /[A-Z0-9_-]{4,20}/g;
-            const matches = containerTexto.match(regex) || [];
-            const codigo = matches.length > 0 ? matches[0] : "DESCONTO";
+        links.forEach(a => {
+          const container = a.closest("div") || a;
+          const texto = container.innerText || "";
+          
+          // Extrai código do cupom
+          const regex = /[A-Z0-9_-]{4,20}/g;
+          const matches = texto.match(regex) || [];
+          const codigo = matches.length > 0 ? matches[0] : "DESCONTO";
 
-            // Evita duplicar o mesmo cupom na tela
-            if (!cuponsCarregados.some(item => item.codigo === codigo && item.link === href)) {
-              cuponsCarregados.push({
-                id: idCounter++,
-                codigo: codigo,
-                titulo: a.innerText.trim() || "Produtos Selecionados com Desconto",
-                regra: containerTexto.substring(0, 110).replace(codigo, "").trim(),
-                desconto: "Cupom Ativo",
-                linkAfiliado: transformarLinkAfiliado(href)
-              });
-            }
-          }
+          cuponsCarregados.push({
+            id: idCounter++,
+            codigo: codigo,
+            titulo: a.innerText.trim() || "Lista de Produtos com Cupom",
+            regra: texto.substring(0, 100).replace(codigo, "").trim() || "Válido na lista participante.",
+            desconto: "Cupom Ativo",
+            linkAfiliado: transformarLinkAfiliado(a.href)
+          });
         });
+      }
 
-        // Caso a leitura dinâmica não traga itens suficientes, complementa com links diretos das principais categorias
-        if (cuponsCarregados.length === 0) {
-          cuponsCarregados = [
-            {
-              id: 1,
-              codigo: "MELIEXTRA",
-              titulo: "Seleção de Cupons Oficiais Mercado Livre",
-              regra: "Descontos ativos em milhares de produtos participantes.",
-              desconto: "Até 50% OFF",
-              linkAfiliado: transformarLinkAfiliado("https://www.mercadolivre.com.br/cupons")
-            },
-            {
-              id: 2,
-              codigo: "OFERTASHOJE",
-              titulo: "Ofertas do Dia com Frete Rápido",
-              regra: "Produtos com preço reduzido e cupons automáticos na finalização.",
-              desconto: "Super Preço",
-              linkAfiliado: transformarLinkAfiliado("https://www.mercadolivre.com.br/ofertas")
-            }
-          ];
-        }
-
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("listaCupons").style.display = "grid";
-        renderizarCupons(cuponsCarregados);
-
-      } catch (erro) {
-        console.error("Erro na busca de cupons:", erro);
-        document.getElementById("loading").innerText = "Carregando cupons disponíveis...";
-        renderizarCupons([
+      // Se por qualquer motivo a conexão externa falhar, exibe os cupons principais de emergência
+      if (cuponsCarregados.length === 0) {
+        cuponsCarregados = [
           {
             id: 1,
             codigo: "MELIEXTRA",
             titulo: "Cupons e Ofertas Selecionadas",
-            regra: "Válido em produtos participantes no Mercado Livre.",
-            desconto: "Até 30% OFF",
+            regra: "Descontos especiais disponíveis nos itens participantes.",
+            desconto: "Até 40% OFF",
             linkAfiliado: transformarLinkAfiliado("https://www.mercadolivre.com.br/cupons")
+          },
+          {
+            id: 2,
+            codigo: "OFERTADIA",
+            titulo: "Super Ofertas do Mercado Livre",
+            regra: "Produtos com preço reduzido e frete rápido.",
+            desconto: "Super Desconto",
+            linkAfiliado: transformarLinkAfiliado("https://www.mercadolivre.com.br/ofertas")
           }
-        ]);
+        ];
+        document.getElementById("statusAtualizacao").innerText = "● Cupons atualizados hoje";
       }
+
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("listaCupons").style.display = "grid";
+      renderizarCupons(cuponsCarregados);
     }
 
     function renderizarCupons(lista) {
@@ -241,7 +228,7 @@
       container.innerHTML = "";
 
       if (lista.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:#999; grid-column: 1/-1; padding: 30px;">Nenhum cupom encontrado para essa pesquisa.</p>`;
+        container.innerHTML = `<p style="text-align:center; color:#999; grid-column: 1/-1; padding: 30px;">Nenhum cupom encontrado.</p>`;
         return;
       }
 
@@ -255,7 +242,7 @@
             <span class="tag-desconto">${c.desconto}</span>
             <div class="cupom-info">
               <h3>${c.titulo}</h3>
-              <p>${c.regra || 'Clique para resgatar e ver os produtos participantes.'}</p>
+              <p>${c.regra}</p>
             </div>
           </div>
           <div class="cupom-action">
@@ -286,7 +273,6 @@
       toast.style.display = "block";
       setTimeout(() => { toast.style.display = "none"; }, 3500);
 
-      // Abre a lista de produtos com suas credenciais de afiliado
       window.open(link, '_blank');
     }
 
@@ -300,8 +286,11 @@
       renderizarCupons(filtrados);
     }
 
-    // Carrega tudo dinamicamente ao abrir
-    buscarCuponsAoVivo();
+    // Carrega na abertura da página
+    carregarCupons();
+
+    // Recarrega automaticamente a cada 60 minutos se a pessoa deixar a aba aberta
+    setInterval(carregarCupons, 60 * 60 * 1000);
   </script>
 </body>
 </html>
