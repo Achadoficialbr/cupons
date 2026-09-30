@@ -32,44 +32,57 @@
 
     /* HEADER */
     header { background: #FFFFFF; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-    .header-inner { max-width: 1040px; margin: 0 auto; height: 64px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
+    .header-inner { max-width: 1040px; margin: 0 auto; height: 60px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
     .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-    .brand-title { font-weight: 800; font-size: 1.2rem; color: var(--primary); display: flex; align-items: center; gap: 6px; }
-    .btn-header { background: var(--primary-light); color: var(--primary); border: none; font-size: 0.8rem; font-weight: 700; padding: 8px 14px; border-radius: 50px; text-decoration: none; }
+    .brand-title { font-weight: 800; font-size: 1.15rem; color: var(--primary); display: flex; align-items: center; gap: 6px; }
+    
+    .btn-site-promos {
+      background: var(--primary); color: #FFFFFF; font-size: 0.8rem; font-weight: 700;
+      padding: 8px 16px; border-radius: 50px; text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: opacity 0.15s;
+    }
+    .btn-site-promos:hover { opacity: 0.9; }
 
-    /* HERO */
-    .hero { background: #FFFFFF; border-bottom: 1px solid var(--border); padding: 24px 16px 20px; }
+    /* NAVEGAÇÃO DE ABAS PRINCIPAIS */
+    .nav-tabs { background: #FFFFFF; border-bottom: 1px solid var(--border); padding: 0 16px; }
+    .nav-tabs-inner { max-width: 1040px; margin: 0 auto; display: flex; gap: 16px; }
+    .tab-link {
+      padding: 12px 6px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+      text-decoration: none; border-bottom: 3px solid transparent; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.15s;
+    }
+    .tab-link.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .tab-link:hover { color: var(--primary); }
+    .tab-badge { background: var(--accent-yellow); color: var(--primary); font-size: 0.68rem; font-weight: 800; padding: 2px 6px; border-radius: 20px; }
+
+    /* ONBOARDING RÁPIDO (COMPACTO) */
+    .hero { background: #FFFFFF; border-bottom: 1px solid var(--border); padding: 12px 16px; }
     .hero-container { max-width: 1040px; margin: 0 auto; }
-    .hero h1 { font-size: 1.6rem; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; margin-bottom: 16px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+    .step-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
+    .step-num { background: var(--primary); color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; flex-shrink: 0; }
+    .step-text h4 { font-size: 0.78rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .step-text p { font-size: 0.7rem; color: var(--text-muted); margin: 0; }
 
-    /* ONBOARDING STEPS */
-    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-    .step-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; }
-    .step-num { background: var(--primary); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0; }
-    .step-text h4 { font-size: 0.82rem; font-weight: 700; color: var(--text); }
-    .step-text p { font-size: 0.75rem; color: var(--text-muted); margin: 0; }
-
-    /* TOOLBAR / FILTROS */
-    .toolbar-wrap { background: #FFFFFF; border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 90; padding: 10px 16px; }
-    .toolbar { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .filter-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; flex-grow: 1; }
+    /* TOOLBAR / FILTROS (SEM BARRA DE BUSCA) */
+    .toolbar-wrap { background: #FFFFFF; border-bottom: 1px solid var(--border); position: sticky; top: 60px; z-index: 90; padding: 10px 16px; }
+    .toolbar { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; }
+    .filter-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; width: 100%; -webkit-overflow-scrolling: touch; }
+    .filter-chips::-webkit-scrollbar { display: none; }
     .chip {
       background: var(--bg); border: 1.5px solid var(--border); padding: 7px 14px; border-radius: 50px;
-      font-size: 0.8rem; font-weight: 700; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.15s;
-      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 700; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.15s;
+      display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
     }
     .chip .count {
-      background: #E2E8F0; color: var(--text); font-size: 0.72rem; padding: 1px 7px; border-radius: 20px; font-weight: 800;
+      background: #E2E8F0; color: var(--text); font-size: 0.7rem; padding: 1px 6px; border-radius: 20px; font-weight: 800;
     }
     .chip.active { background: var(--primary); color: #FFFFFF; border-color: var(--primary); }
     .chip.active .count { background: rgba(255,255,255,0.25); color: #FFFFFF; }
 
-    .search-input { padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 50px; font-size: 0.8rem; outline: none; width: 220px; background: var(--bg); }
-    .search-input:focus { border-color: var(--primary); background: #FFF; }
-
     /* GRID DE CUPONS */
-    .container { max-width: 1040px; margin: 24px auto; padding: 0 16px; }
-    .cupons-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .container { max-width: 1040px; margin: 18px auto; padding: 0 16px; }
+    .cupons-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
     @media (min-width: 768px) { .cupons-grid { grid-template-columns: 1fr 1fr; } }
 
     /* CARD DE CUPOM */
@@ -85,8 +98,8 @@
 
     /* TAGS EM DESTAQUE */
     .pill-scope {
-      font-size: 0.75rem; font-weight: 800; padding: 6px 12px; border-radius: 8px;
-      display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: 0.03em;
+      font-size: 0.72rem; font-weight: 800; padding: 5px 10px; border-radius: 8px;
+      display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.03em;
     }
     .pill-scope.seller { background: var(--accent-purple-bg); color: var(--accent-purple); border: 1px solid #E9D5FF; }
     .pill-scope.site { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid #BBF7D0; }
@@ -104,10 +117,10 @@
     .code-text { font-size: 0.95rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; }
     .code-text.masked { filter: blur(5px); user-select: none; }
 
-    /* PROVA SOCIAL ESTILO CUPONOMIA */
+    /* PROVA SOCIAL */
     .social-proof {
       font-size: 0.72rem; font-weight: 700; color: #047857; display: flex; align-items: center; gap: 4px;
-      background: #ECFDF5; padding: 3px 8px; border-radius: 4px; width: fit-content; margin-bottom: 8px;
+      background: #ECFDF5; padding: 3px 8px; border-radius: 4px; width: fit-content;
     }
     .social-proof .fire { color: #EA580C; }
 
@@ -126,7 +139,7 @@
     .btn-action-title { font-size: 0.85rem; font-weight: 800; line-height: 1.2; }
     .btn-action-sub { font-size: 0.68rem; font-weight: 600; opacity: 0.85; }
 
-    /* FOOTER FLUTUANTE (RETENÇÃO WHATSAPP) */
+    /* FOOTER FLUTUANTE */
     .floating-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: #FFFFFF; border-top: 1px solid var(--border);
       padding: 10px 16px; z-index: 99; display: flex; align-items: center; justify-content: space-between;
@@ -153,36 +166,45 @@
     <a href="#" class="brand">
       <span class="brand-title">Achado Oficial 🇧🇷</span>
     </a>
-    <a href="https://www.mercadolivre.com.br/social/achadoficial" target="_blank" class="btn-header">
-      Perfil Mercado Livre ↗
+    <a href="https://www.achadoficialbr.com.br" target="_blank" class="btn-site-promos">
+      🛍️ Ver Todas as Promoções ↗
     </a>
   </div>
 </header>
 
+<div class="nav-tabs">
+  <div class="nav-tabs-inner">
+    <a href="#" class="tab-link active">
+      🎟️ Cupons Mercado Livre <span class="tab-badge">Ao Vivo</span>
+    </a>
+    <a href="https://www.achadoficialbr.com.br" target="_blank" class="tab-link">
+      🔥 Promoções Garimpadas ↗
+    </a>
+  </div>
+</div>
+
 <section class="hero">
   <div class="hero-container">
-    <h1>Cupons e Listas Oficiais</h1>
-    
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-num">1</div>
         <div class="step-text">
           <h4>Escolha o Cupom</h4>
-          <p>Confira a regra de compra mínima e o teto do desconto.</p>
+          <p>Confira a regra de compra mínima e teto.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
         <div class="step-text">
           <h4>Abra a Lista Oficial</h4>
-          <p>O código é copiado e os itens elegíveis abrem na hora.</p>
+          <p>O código é copiado e os itens elegíveis abrem.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <div class="step-text">
           <h4>Cole no Carrinho</h4>
-          <p>O desconto é aplicado na finalização dos itens participantes.</p>
+          <p>Desconto aplicado na finalização dos itens.</p>
         </div>
       </div>
     </div>
@@ -199,7 +221,6 @@
       <button class="chip" onclick="filtrar('Casa', this)">Casa & Decoração <span class="count" id="cnt-casa">0</span></button>
       <button class="chip" onclick="filtrar('Outros', this)">Outros <span class="count" id="cnt-outros">0</span></button>
     </div>
-    <input type="search" id="busca" class="search-input" placeholder="Buscar cupom ou loja..." oninput="buscar()"/>
   </div>
 </div>
 
@@ -277,7 +298,6 @@ function identificarCategoria(c) {
   return { key: 'Outros', label: `📦 ${c.acao || 'Especial'}`, class: 'outros' };
 }
 
-// Gera uma quantidade de usos orgânica e estável durante o dia
 function calcularUsosHoje(nome, descontoStr) {
   let hash = 0;
   for (let i = 0; i < nome.length; i++) {
@@ -290,7 +310,6 @@ function calcularUsosHoje(nome, descontoStr) {
 }
 
 let filtroAtual = 'all';
-let buscaAtual = '';
 
 function atualizarContadores() {
   document.getElementById("cnt-all").textContent = COUPONS.length;
@@ -307,19 +326,16 @@ function renderizar() {
   grid.innerHTML = "";
 
   const filtrados = COUPONS.filter(c => {
-    let matchFiltro = true;
-    if (filtroAtual === 'site') matchFiltro = c.is_mar_aberto;
-    else if (filtroAtual === 'Sellers') matchFiltro = !c.is_mar_aberto && /sellers/i.test(c.acao);
-    else if (filtroAtual === 'Moda') matchFiltro = !c.is_mar_aberto && /fashion/i.test(c.acao);
-    else if (filtroAtual === 'Casa') matchFiltro = !c.is_mar_aberto && /furnishing|houseware/i.test(c.acao);
-    else if (filtroAtual === 'Outros') matchFiltro = !c.is_mar_aberto && !/sellers|fashion|furnishing|houseware/i.test(c.acao);
-
-    const matchBusca = c.nome.toLowerCase().includes(buscaAtual) || (c.acao || '').toLowerCase().includes(buscaAtual);
-    return matchFiltro && matchBusca;
+    if (filtroAtual === 'site') return c.is_mar_aberto;
+    if (filtroAtual === 'Sellers') return !c.is_mar_aberto && /sellers/i.test(c.acao);
+    if (filtroAtual === 'Moda') return !c.is_mar_aberto && /fashion/i.test(c.acao);
+    if (filtroAtual === 'Casa') return !c.is_mar_aberto && /furnishing|houseware/i.test(c.acao);
+    if (filtroAtual === 'Outros') return !c.is_mar_aberto && !/sellers|fashion|furnishing|houseware/i.test(c.acao);
+    return true;
   });
 
   if (filtrados.length === 0) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--text-muted);font-weight:600;">Nenhum cupom encontrado para essa categoria ou busca.</p>`;
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--text-muted);font-weight:600;">Nenhum cupom encontrado para essa categoria.</p>`;
     return;
   }
 
@@ -388,11 +404,6 @@ function filtrar(tipo, el) {
   filtroAtual = tipo;
   document.querySelectorAll(".chip").forEach(b => b.classList.remove("active"));
   el.classList.add("active");
-  renderizar();
-}
-
-function buscar() {
-  buscaAtual = document.getElementById("busca").value.toLowerCase().trim();
   renderizar();
 }
 
