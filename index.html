@@ -207,7 +207,7 @@
       🟡 Mercado Livre <span class="tab-cnt" id="cnt-tab-meli">0</span>
     </button>
     <button class="nav-tab" onclick="trocarLoja('nike', this)">
-      ✔️ Nike <span class="tab-cnt" id="cnt-tab-nike">0</span>
+      ✔️️ Nike <span class="tab-cnt" id="cnt-tab-nike">0</span>
     </button>
     <button class="nav-tab" onclick="trocarLoja('netshoes', this)">
       👟 Netshoes <span class="tab-cnt" id="cnt-tab-netshoes">0</span>
@@ -242,7 +242,7 @@
   <div class="bottom-bar-inner">
     <div class="bottom-txt">
       Não perca ofertas e cupons
-      <span>Receba alertas em tempo real direto no seu WhatsApp.</span>
+      <span>Receba tudo em tempo real direto no seu WhatsApp.</span>
     </div>
     <a href="https://www.achadoficial.com.br/achado-oficial" target="_blank" class="btn-wpp">
       Entrar no Grupo
@@ -320,7 +320,7 @@ function comissionar(cupom) {
 }
 
 function categorizar(c) {
-  if (c.loja === 'nike') return { key: 'nike', label: '✔️ Nike Oficial', class: 'brand-nike', featured: true };
+  if (c.loja === 'nike') return { key: 'nike', label: '✔ Nike Oficial', class: 'brand-nike', featured: true };
   if (c.loja === 'netshoes') return { key: 'netshoes', label: '👟 Netshoes Oficial', class: 'brand-netshoes', featured: true };
   
   if (c.is_mar_aberto) return { key: 'site', label: '🌐 Todo o Site', class: 'top', featured: true };
@@ -413,7 +413,7 @@ function renderizar() {
 
         <div class="coupon-slot">
           <span class="coupon-code masked" id="c-${i}">${c.nome.substring(0, 3)}••••</span>
-          <span class="verified-pill">✓ Ativo · 🔥 ${usos}</span>
+          <span class="verified-pill">✓ Ativo · 🔥 ${usos} usos</span>
         </div>
 
         <div class="rules-list">
