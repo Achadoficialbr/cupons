@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cupons e Ofertas Mercado Livre | Descontos Exclusivos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ml-yellow: #FFE600;
+      --ml-blue: #2D3277;
+      --ml-green: #00A650;
+      --bg: #F4F5F7;
+      --card-bg: #FFFFFF;
+      --text: #222222;
+      --text-muted: #666666;
+      --border: #E2E4E8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 80px; }
+
+    header { background-color: var(--ml-yellow); padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .header-content { max-width: 850px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.25rem; font-weight: 800; color: var(--ml-blue); text-decoration: none; }
+    .logo span { color: #d60000; }
+    
+    .btn-wpp {
+      background-color: #25D366; color: #fff; font-weight: 700; font-size: 0.85rem;
+      padding: 9px 16px; border-radius: 20px; text-decoration: none; display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 3px 8px rgba(37,211,102,0.25);
+    }
+
+    .container { max-width: 850px; margin: 24px auto; padding: 0 16px; }
+
+    .hero { text-align: center; margin-bottom: 24px; }
+    .hero h1 { font-size: 1.6rem; color: var(--ml-blue); margin-bottom: 6px; }
+    .badge-live {
+      display: inline-block; background-color: #E8F7EE; color: var(--ml-green);
+      font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 12px; margin-bottom: 10px;
+    }
+
+    .search-box {
+      width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--border);
+      font-size: 0.95rem; margin-bottom: 16px; outline: none; background: #fff;
+    }
+
+    .categories { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+    .cat-btn {
+      background: #fff; border: 1px solid var(--border); padding: 8px 14px; border-radius: 20px;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-muted); cursor: pointer; white-space: nowrap;
+    }
+    .cat-btn.active { background: var(--ml-blue); color: #fff; border-color: var(--ml-blue); }
+
+    .cupons-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media(min-width: 650px) { .cupons-grid { grid-template-columns: 1fr 1fr; } }
+
+    .cupom-card {
+      background: var(--card-bg); border-radius: 16px; padding: 18px;
+      border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.02);
+    }
+
+    .tag-desconto {
+      align-self: flex-start; background: #FFF4E5; color: #D96B00;
+      font-weight: 800; font-size: 0.82rem; padding: 4px 10px; border-radius: 8px; margin-bottom: 8px;
+    }
+    .cupom-info h3 { font-size: 1.1rem; margin-bottom: 4px; color: var(--text); }
+    .cupom-info p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 16px; }
+
+    .cupom-action {
+      background: #F8F9FA; border: 2px dashed #D0D5DD; border-radius: 12px;
+      display: flex; align-items: center; justify-content: space-between; padding: 5px 5px 5px 12px;
+    }
+    .cupom-code { font-weight: 800; font-size: 0.95rem; color: var(--ml-blue); letter-spacing: 1px; }
+    .cupom-code.oculto { filter: blur(4px); user-select: none; }
+
+    .btn-pegar {
+      background-color: var(--ml-green); color: #fff; border: none; padding: 10px 16px;
+      border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: 0.2s;
+    }
+    .btn-pegar.revelado { background-color: var(--ml-blue); }
+
+    #toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: #1F2937; color: #fff; padding: 12px 24px; border-radius: 30px;
+      font-size: 0.88rem; font-weight: 600; display: none; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <a href="#" class="logo">Achados<span>Descontos</span></a>
+      <!-- Altere com o link do seu WhatsApp -->
+      <a href="https://chat.whatsapp.com/SEU_GRUPO_AQUI" target="_blank" class="btn-wpp">
+        Grupo VIP
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <div class="badge-live">● Cupons Ativos e Testados</div>
+      <h1>Cupons Mercado Livre</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Clique no cupom para copiar o código e abrir os produtos participantes.</p>
+    </div>
+
+    <input type="text" id="buscaInput" class="search-box" placeholder="Buscar cupom por categoria ou valor..." onkeyup="filtrarCupons()">
+
+    <div class="categories">
+      <button class="cat-btn active" onclick="filtrarCategoria('todos', this)">Todos</button>
+      <button class="cat-btn" onclick="filtrarCategoria('Moda', this)">Moda</button>
+      <button class="cat-btn" onclick="filtrarCategoria('Tecnologia', this)">Tecnologia</button>
+      <button class="cat-btn" onclick="filtrarCategoria('Casa', this)">Casa</button>
+      <button class="cat-btn" onclick="filtrarCategoria('Beleza', this)">Beleza</button>
+    </div>
+
+    <div class="cupons-grid" id="listaCupons"></div>
+  </div>
+
+  <div id="toast">Cupom copiado! Abrindo produtos com desconto...</div>
+
+  <script>
+    // DADOS DOS CUPONS: Basta preencher o linkAfiliado com o link da lista comissionado
+    const cuponsData = [
+      {
+        id: 1,
+        codigo: "MODA20",
+        categoria: "Moda",
+        desconto: "20% OFF",
+        titulo: "Roupas, Calçados e Acessórios",
+        regra: "Válido em compras acima de R$ 199 na lista participante.",
+        linkAfiliado: "https://www.mercadolivre.com.br"
+      },
+      {
+        id: 2,
+        codigo: "TECH500",
+        categoria: "Tecnologia",
+        desconto: "R$ 500 OFF",
+        titulo: "Notebooks e Eletrônicos",
+        regra: "Válido para itens selecionados acima de R$ 2.500.",
+        linkAfiliado: "https://www.mercadolivre.com.br"
+      },
+      {
+        id: 3,
+        codigo: "CASA15",
+        categoria: "Casa",
+        desconto: "15% OFF",
+        titulo: "Móveis e Eletrodomésticos",
+        regra: "Desconto máximo de R$ 150 em toda a seleção.",
+        linkAfiliado: "https://www.mercadolivre.com.br"
+      }
+    ];
+
+    let categoriaAtiva = 'todos';
+
+    function renderizarCupons(lista) {
+      const container = document.getElementById("listaCupons");
+      container.innerHTML = "";
+
+      if(lista.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#999; grid-column: 1/-1; padding: 30px;">Nenhum cupom encontrado.</p>`;
+        return;
+      }
+
+      lista.forEach(c => {
+        const card = document.createElement("div");
+        card.className = "cupom-card";
+        card.innerHTML = `
+          <div>
+            <span class="tag-desconto">${c.desconto}</span>
+            <div class="cupom-info">
+              <h3>${c.titulo}</h3>
+              <p>${c.regra}</p>
+            </div>
+          </div>
+          <div class="cupom-action">
+            <span class="cupom-code oculto" id="code-${c.id}">${c.codigo.substring(0, 2)}••••</span>
+            <button class="btn-pegar" id="btn-${c.id}" onclick="ativarCupom(${c.id}, '${c.codigo}', '${c.linkAfiliado}')">
+              Pegar Cupom
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function ativarCupom(id, codigo, link) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(codigo);
+      }
+
+      const codeSpan = document.getElementById(`code-${id}`);
+      codeSpan.innerText = codigo;
+      codeSpan.classList.remove('oculto');
+
+      const btn = document.getElementById(`btn-${id}`);
+      btn.innerText = "Copiado! ✓";
+      btn.classList.add('revelado');
+
+      const toast = document.getElementById("toast");
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 3500);
+
+      window.open(link, '_blank');
+    }
+
+    function filtrarCategoria(cat, elemento) {
+      categoriaAtiva = cat;
+      document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+      elemento.classList.add("active");
+      filtrarCupons();
+    }
+
+    function filtrarCupons() {
+      const termo = document.getElementById("buscaInput").value.toLowerCase();
+      const filtrados = cuponsData.filter(c => {
+        const matchesCat = categoriaAtiva === 'todos' || c.categoria === categoriaAtiva;
+        const matchesBusca = c.titulo.toLowerCase().includes(termo) || 
+                             c.codigo.toLowerCase().includes(termo) || 
+                             c.desconto.toLowerCase().includes(termo) ||
+                             c.categoria.toLowerCase().includes(termo);
+        return matchesCat && matchesBusca;
+      });
+      renderizarCupons(filtrados);
+    }
+
+    renderizarCupons(cuponsData);
+  </script>
+</body>
+</html>
