@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Achado Oficial 🇧🇷 — Cupons Mercado Livre</title>
+  <title>Achado Oficial 🇧🇷 — Cupons e Ofertas Mercado Livre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #2D3277;
-      --primary-dark: #1E2254;
       --accent-yellow: #FFE600;
-      --accent-yellow-dark: #F0D800;
       --accent-green: #00A650;
       --bg: #F5F6F9;
       --surface: #FFFFFF;
@@ -22,30 +20,40 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text-main); padding-bottom: 90px; }
+    body { background-color: var(--bg); color: var(--text-main); padding-bottom: 96px; }
 
-    /* HEADER */
+    /* HEADER COM LOGO E ABAS DE NAVEGAÇÃO */
     header {
       background: #FFFFFF; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
-    .header-inner {
-      max-width: 860px; margin: 0 auto; height: 54px; padding: 0 16px;
+    .header-top {
+      max-width: 860px; margin: 0 auto; height: 50px; padding: 0 16px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .brand-title {
-      font-weight: 900; font-size: 1.05rem; color: var(--primary);
+      font-weight: 900; font-size: 1.1rem; color: var(--primary);
       text-decoration: none; display: flex; align-items: center; gap: 6px;
     }
-    .btn-site-link {
-      background: #EEF2FF; color: var(--primary); font-size: 0.75rem; font-weight: 800;
-      padding: 6px 14px; border-radius: 50px; text-decoration: none; transition: 0.15s;
-    }
 
-    /* FILTROS ESTRATÉGICOS */
+    /* ABAS DE NAVEGAÇÃO (OPÇÃO C) */
+    .nav-tabs {
+      max-width: 860px; margin: 0 auto; display: flex; border-top: 1px solid #F1F5F9;
+    }
+    .nav-tab {
+      flex: 1; text-align: center; padding: 10px 8px; font-size: 0.82rem; font-weight: 700;
+      color: var(--text-muted); text-decoration: none; border-bottom: 3px solid transparent;
+      display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s;
+    }
+    .nav-tab.active {
+      color: var(--primary); border-bottom-color: var(--primary); background: #FAF5FF;
+    }
+    .nav-tab:hover { color: var(--primary); }
+
+    /* FILTROS HORIZONTAIS */
     .filter-bar {
       background: #FFFFFF; border-bottom: 1px solid var(--border);
-      position: sticky; top: 54px; z-index: 90; padding: 8px 16px;
+      position: sticky; top: 92px; z-index: 90; padding: 8px 16px;
     }
     .filter-scroll {
       max-width: 860px; margin: 0 auto; display: flex; gap: 8px;
@@ -69,7 +77,7 @@
     .grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 680px) { .grid { grid-template-columns: 1fr 1fr; } }
 
-    /* NOVO CARD TIPO VOUCHER PREMIUM */
+    /* CARD VOUCHER / TICKET */
     .voucher-card {
       background: var(--surface); border-radius: var(--radius);
       border: 1px solid var(--border); overflow: hidden;
@@ -78,8 +86,6 @@
       position: relative; transition: transform 0.15s, box-shadow 0.15s;
     }
     .voucher-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
-
-    /* DESTAQUE ESPECIAL PARA "TODO O SITE" / CATEGORIAS TOP */
     .voucher-card.featured {
       border: 1.5px solid #BBF7D0;
       background: linear-gradient(180deg, #FAFCFF 0%, #FFFFFF 100%);
@@ -104,7 +110,6 @@
     .badge-scope.cat { background: #EEF2FF; color: var(--primary); }
     .badge-scope.seller { background: #F1F5F9; color: var(--text-muted); }
 
-    /* LINHA DO CUPOM + PROVA SOCIAL */
     .coupon-slot {
       background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 10px;
       padding: 8px 12px; display: flex; align-items: center; justify-content: space-between;
@@ -118,7 +123,6 @@
       font-size: 0.7rem; font-weight: 700; color: #047857; display: flex; align-items: center; gap: 4px;
     }
 
-    /* REGRAS CLARAS E DIRETAS */
     .rules-list {
       font-size: 0.76rem; color: var(--text-muted); line-height: 1.45;
       display: flex; flex-direction: column; gap: 2px;
@@ -126,10 +130,9 @@
     .rules-list strong { color: var(--text-main); }
     .scope-note { font-size: 0.72rem; font-weight: 600; color: #B45309; }
 
-    /* DIVISÃO DE VOUCHER (STUB) */
+    /* DIVISÃO COM RECORTE */
     .ticket-divider {
-      height: 1px; border-top: 1px dashed #E2E8F0; margin: 0 16px;
-      position: relative;
+      height: 1px; border-top: 1px dashed #E2E8F0; margin: 0 16px; position: relative;
     }
     .ticket-divider::before, .ticket-divider::after {
       content: ''; position: absolute; width: 14px; height: 14px;
@@ -138,7 +141,6 @@
     .ticket-divider::before { left: -23px; border-right: 1px solid var(--border); }
     .ticket-divider::after { right: -23px; border-left: 1px solid var(--border); }
 
-    /* AÇÃO / BOTÃO */
     .card-footer { padding: 12px 16px 14px; }
     .btn-claim {
       background: var(--accent-yellow); color: var(--primary); border: none;
@@ -149,22 +151,23 @@
     .btn-claim:active { transform: scale(0.98); }
     .btn-claim.copied { background: var(--accent-green); color: #FFFFFF; }
 
-    /* FOOTER FIXO (WHATSAPP) */
+    /* BARRA FIXA DO WHATSAPP REFINADA */
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: #FFFFFF;
-      border-top: 1px solid var(--border); padding: 8px 16px; z-index: 99;
+      border-top: 1px solid var(--border); padding: 10px 16px; z-index: 99;
       display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 -3px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
     }
     .bottom-bar-inner {
       max-width: 860px; margin: 0 auto; width: 100%; display: flex;
       align-items: center; justify-content: space-between; gap: 12px;
     }
-    .bottom-txt { font-size: 0.78rem; font-weight: 700; color: var(--text-main); }
-    .bottom-txt span { display: block; font-size: 0.7rem; font-weight: 500; color: var(--text-muted); }
+    .bottom-txt { font-size: 0.82rem; font-weight: 800; color: var(--text-main); }
+    .bottom-txt span { display: block; font-size: 0.72rem; font-weight: 500; color: var(--text-muted); }
     .btn-wpp {
-      background: #25D366; color: #FFFFFF; font-size: 0.8rem; font-weight: 800;
-      padding: 8px 16px; border-radius: 50px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+      background: #25D366; color: #FFFFFF; font-size: 0.82rem; font-weight: 800;
+      padding: 9px 18px; border-radius: 50px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(37,211,102,0.25);
     }
 
     #toast {
@@ -177,12 +180,17 @@
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="header-top">
     <a href="#" class="brand-title">Achado Oficial 🇧🇷</a>
-    <a href="https://www.achadoficialbr.com.br" target="_blank" class="btn-site-link">
-      Ver Promoções ↗
-    </a>
   </div>
+  <nav class="nav-tabs">
+    <a href="#" class="nav-tab active">
+      🎟️ Cupons Ativos
+    </a>
+    <a href="https://www.achadoficialbr.com.br" target="_blank" class="nav-tab">
+      📦 Produtos com Desconto (Site) ↗
+    </a>
+  </nav>
 </header>
 
 <div class="filter-bar">
@@ -192,7 +200,7 @@
     <button class="chip" onclick="filtrar('Lojas', this)">🏪 Grandes Lojas & Tech <span class="num" id="cnt-lojas">0</span></button>
     <button class="chip" onclick="filtrar('Moda', this)">👗 Moda <span class="num" id="cnt-moda">0</span></button>
     <button class="chip" onclick="filtrar('Casa', this)">🏠 Casa & Cozinha <span class="num" id="cnt-casa">0</span></button>
-    <button class="chip" onclick="filtrar('Sellers', this)">🏷️ Seleção Lojas <span class="num" id="cnt-sellers">0</span></button>
+    <button class="chip" onclick="filtrar('Sellers', this)">🏷️️ Seleção Lojas <span class="num" id="cnt-sellers">0</span></button>
   </div>
 </div>
 
@@ -203,11 +211,11 @@
 <div class="bottom-bar">
   <div class="bottom-bar-inner">
     <div class="bottom-txt">
-      Cupons de alta procura
-      <span>Avisamos no WhatsApp assim que abrir nova verba</span>
+      Não perca ofertas e cupons
+      <span>Receba alertas em tempo real direto no seu WhatsApp.</span>
     </div>
     <a href="https://www.achadoficial.com.br/achado-oficial" target="_blank" class="btn-wpp">
-      Entrar no Grupo
+      Entrar no Grupo VIP Grátis
     </a>
   </div>
 </div>
@@ -218,7 +226,6 @@
 const MATT_TOOL = "52184482";
 const MATT_WORD = "achadoficial";
 
-// Base com todos os cupons originais
 let RAW_COUPONS = [
   {"nome":"CUPOMLIBERADO","acao":"Fashion","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"18%","min_compra":"49","desconto_max":"50","container_url":"https://lista.mercadolivre.com.br/_Container_fashion-2026-2","is_mar_aberto":false},
   {"nome":"MLMELHOROFERTA","acao":"Furnishing & Houseware","dia_inicio":"28/09/2026","dia_fim":"30/09/2026","valor_desconto":"18%","min_compra":"79","desconto_max":"60","container_url":"https://lista.mercadolivre.com.br/_Container_fh-afiliados-2026","is_mar_aberto":false},
@@ -257,10 +264,6 @@ let RAW_COUPONS = [
   {"nome":"DESCONTOMELI","acao":"Sellers","dia_inicio":"29/09/2026","dia_fim":"02/11/2026","valor_desconto":"30%","min_compra":"1","desconto_max":"500","container_url":"https://lista.mercadolivre.com.br/_Container_aff-list-17","is_mar_aberto":false}
 ];
 
-// ORDENAÇÃO INTELIGENTE DE UX:
-// 1. Todo o site (prioridade máxima)
-// 2. Grandes Lojas & Categorias (Magalu, Kabum, Moda, Casa, Beleza)
-// 3. Sellers (por último)
 function prioridade(c) {
   if (c.is_mar_aberto) return 1;
   if (/magalu|kabum|casas bahia|fashion|furnishing|beauty|toys/i.test(c.acao)) return 2;
@@ -282,7 +285,7 @@ function categorizar(c) {
   if (/furnishing|houseware/i.test(c.acao)) return { key: 'Casa', label: '🏠 Casa & Cozinha', class: 'cat', featured: false };
   if (/beauty/i.test(c.acao)) return { key: 'Lojas', label: '💄 Beleza & Perfumaria', class: 'cat', featured: true };
   if (/toys/i.test(c.acao)) return { key: 'Lojas', label: '🧸 Brinquedos & Bebês', class: 'cat', featured: false };
-  return { key: 'Sellers', label: '🏷️ Seleção Lojas', class: 'seller', featured: false };
+  return { key: 'Sellers', label: '🏷️️ Seleção Lojas', class: 'seller', featured: false };
 }
 
 function calcularUsos(nome) {
